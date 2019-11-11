@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".GraphActivity">
+
+    <item
+        android:id="@+id/action_weekly"
+        android:title="@string/weekly_mileage"
+        app:showAsAction="never"
+        ></item>
+    <item
+        android:id="@+id/action_allworkout"
+        android:title="@string/all_workout"
+        app:showAsAction="never"></item>
+
+    <item
+        android:id="@+id/action_combine"
+        android:title="@string/combined"
+        app:showAsAction="never"
+        ></item>
+</menu>

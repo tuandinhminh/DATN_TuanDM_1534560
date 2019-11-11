@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Running Log Pro</string>
+    <string name="add">Thêm</string>
+    <string name="all_workout">Mọi Lần Chạy</string>
+    <string name="combined">Kết Hợp</string>
+    <string name="current_month">Tháng hiện tại</string>
+    <string name="delete">Xóa</string>
+    <string name="distance">Quãng đường</string>
+    <string name="duration">Khoảng</string>
+    <string name="edit">Sửa</string>
+    <string name="export_data">Xuất dữ liệu</string>
+    <string name="feel">Cảm nhận</string>
+    <string name="graph">Biểu đồ</string>
+    <string name="run_name">Tên</string>
+    <string name="run_type">Loại</string>
+    <string name="time">Thời gian</string>
+    <string name="weekly_mileage">Quãng đường theo tuần</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="fr">Sáu</string>
+    <string name="mo">Hai</string>
+    <string name="sa">Bảy</string>
+    <string name="su">CN</string>
+    <string name="th">Năm</string>
+    <string name="tu">Ba</string>
+    <string name="we">Tư</string>
+    <string name="en">Tiếng Anh</string>
+    <string name="vi">Tiếng Việt</string>
+</resources>

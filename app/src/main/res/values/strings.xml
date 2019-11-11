@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Running Log Pro</string>
+    <string name="current_month">Current Month</string>
+    <string name="graph">graph</string>
+    <string name="export_data">Export Data</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="weekly_mileage">Weekly Mileage</string>
+    <string name="all_workout">All Workout</string>
+    <string name="combined">Combined</string>
+    <string name="run_name">Run Name</string>
+    <string name="distance">Distance</string>
+    <string name="time">Time</string>
+    <string name="duration">Duration</string>
+    <string name="run_type">Run Type</string>
+    <string name="feel">Feel</string>
+    <string name="language">Language</string>
+    <string name="mo">Mo</string>
+    <string name="tu">Tu</string>
+    <string name="we">We</string>
+    <string name="th">Th</string>
+    <string name="fr">Fr</string>
+    <string name="sa">Sa</string>
+    <string name="su">Su</string>
+    <string name="en">English</string>
+    <string name="vi">Vietnamese</string>
+</resources>
