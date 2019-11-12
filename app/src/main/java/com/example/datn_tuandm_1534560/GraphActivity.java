@@ -1,6 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -25,6 +27,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 
 public class GraphActivity extends AppCompatActivity {
@@ -38,6 +43,7 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.weekly_mileage);
+
         mChart = findViewById(R.id.bar_chart);
 //        mChart.setOnChartGestureListener(this);
 //        mChart.setOnChartValueSelectedListener(this);
@@ -124,13 +130,13 @@ public class GraphActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    //disable menu hien tai
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-
 //            menu.getItem(1).setEnabled(false);
             // You can also use something like:
              menu.findItem(R.id.action_weekly).setEnabled(false);
-
         return true;
     }
+
 }

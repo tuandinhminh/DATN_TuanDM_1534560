@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 import java.util.Locale;
 
 public class LanguageActivity extends AppCompatActivity {
     RadioGroup rg;
     RadioButton vi,en;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,11 @@ public class LanguageActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.Vietnamese){
                     changeLanguage("vi");
+                    LANGUAGE = "vi";
                 }
                 if (i == R.id.English){
                     changeLanguage("en");
-                    Toast.makeText(LanguageActivity.this, current.toString(), Toast.LENGTH_SHORT).show();
+                    LANGUAGE = "en";
                 }
             }
         });

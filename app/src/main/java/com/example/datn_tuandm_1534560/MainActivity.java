@@ -2,6 +2,7 @@ package com.example.datn_tuandm_1534560;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import static com.example.datn_tuandm_1534560.CustomCalendarView.calendar;
 public class MainActivity extends AppCompatActivity  {
     private AdView mAdView,mAdView1;
     public static InterstitialAd interstitialAd;
+    public static String LANGUAGE = "en";
     private CustomCalendarView customCalendarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity  {
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-2298280937767584/5106310651");
         interstitialAd.loadAd(new AdRequest.Builder().build());
-
 
     }
 
