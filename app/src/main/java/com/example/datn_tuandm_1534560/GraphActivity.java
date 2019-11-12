@@ -1,6 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -25,6 +26,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 
 public class GraphActivity extends AppCompatActivity {
@@ -34,6 +38,9 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<String> weeklyWorkout = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -132,5 +139,11 @@ public class GraphActivity extends AppCompatActivity {
              menu.findItem(R.id.action_weekly).setEnabled(false);
 
         return true;
+    }
+    public void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 }

@@ -2,6 +2,7 @@ package com.example.datn_tuandm_1534560;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -33,9 +34,13 @@ import static com.example.datn_tuandm_1534560.CustomCalendarView.calendar;
 public class MainActivity extends AppCompatActivity  {
     private AdView mAdView,mAdView1;
     public static InterstitialAd interstitialAd;
+    public static String LANGUAGE = "en";
     private CustomCalendarView customCalendarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         customCalendarView = findViewById(R.id.custom_calendar_view);
@@ -140,5 +145,11 @@ public class MainActivity extends AppCompatActivity  {
         cursor.close();
         dbOpenHelper.close();
         return events;
+    }
+    public void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 }

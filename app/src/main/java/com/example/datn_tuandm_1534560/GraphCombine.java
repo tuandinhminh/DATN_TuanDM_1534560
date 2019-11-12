@@ -27,6 +27,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+
+
 public class GraphCombine extends AppCompatActivity {
     private CombinedChart mChart;
     ArrayList<BarEntry> barEntries;

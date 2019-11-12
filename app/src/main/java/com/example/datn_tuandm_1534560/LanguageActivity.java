@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Locale;
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 public class LanguageActivity extends AppCompatActivity {
     RadioGroup rg;
@@ -24,10 +25,10 @@ public class LanguageActivity extends AppCompatActivity {
         en = findViewById(R.id.English);
         //kiem tra ngon ngu ban dau
         final Locale current = getResources().getConfiguration().locale;
-        if (current.toString().contains("vi")){
+        if (LANGUAGE.equals("vi")){
             vi.setChecked(true);
         }
-        if (current.toString().contains("en")){
+        if (LANGUAGE.equals("en")){
             en.setChecked(true);
         }
         //thay doi ngon ngu
@@ -36,10 +37,11 @@ public class LanguageActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.Vietnamese){
                     changeLanguage("vi");
+                    LANGUAGE = "vi";
                 }
                 if (i == R.id.English){
                     changeLanguage("en");
-                    Toast.makeText(LanguageActivity.this, current.toString(), Toast.LENGTH_SHORT).show();
+                    LANGUAGE = "en";
                 }
             }
         });

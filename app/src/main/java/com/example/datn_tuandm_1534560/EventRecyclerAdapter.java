@@ -198,11 +198,11 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             }
         });
-        myViewHolder.Event.setText(R.string.run_name+events.getEVENT()+ "-"+ events.getWEEK());
+        myViewHolder.Event.setText(context.getResources().getString(R.string.run_name)+" : "+events.getEVENT()+ "-"+ events.getWEEK());
         FeelColors(events.getFEEL(),myViewHolder.Event);
         myViewHolder.DateTxt.setText(events.getDATE());
-        myViewHolder.Time.setText(R.string.time+events.getTIME());
-        myViewHolder.Distance.setText(R.string.distance+events.getDISTANCE() + " km");
+        myViewHolder.Time.setText(context.getResources().getString(R.string.time)+" : "+events.getTIME());
+        myViewHolder.Distance.setText(context.getResources().getString(R.string.distance)+" : "+events.getDISTANCE() + " km");
 
         //chuyen doi thoi gian
         int duration1 = Integer.parseInt(events.getDURATION());
@@ -222,9 +222,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         if(minutes < 10) minute = "0"+minute;
         if (seconds < 10) second = "0"+second;
 
-        myViewHolder.Duration.setText(R.string.duration+hours+":"+minute+":"+second);
-        myViewHolder.Type.setText(R.string.run_type+events.getTYPE());
-        myViewHolder.Feel.setText(R.string.feel+events.getFEEL());
+        myViewHolder.Duration.setText(context.getResources().getString(R.string.duration)+" : "+hours+":"+minute+":"+second);
+        myViewHolder.Type.setText(context.getResources().getString(R.string.run_type)+" : "+events.getTYPE());
+        myViewHolder.Feel.setText(context.getResources().getString(R.string.feel)+" : "+events.getFEEL());
         //tinh toan Pace
         double pace1 = (seconds+minutes*60+hours*3600)/distance1;
         hours = 0;
