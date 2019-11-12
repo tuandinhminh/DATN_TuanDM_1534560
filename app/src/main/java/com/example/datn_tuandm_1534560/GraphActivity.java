@@ -40,6 +40,9 @@ public class GraphActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         setContentView(R.layout.activity_graph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.weekly_mileage);
@@ -133,10 +136,15 @@ public class GraphActivity extends AppCompatActivity {
     //disable menu hien tai
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-//            menu.getItem(1).setEnabled(false);
-            // You can also use something like:
              menu.findItem(R.id.action_weekly).setEnabled(false);
         return true;
+    }
+    //ham doi ngon ngu
+    public void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GraphCombine extends AppCompatActivity {
     private CombinedChart mChart;

@@ -25,10 +25,10 @@ public class LanguageActivity extends AppCompatActivity {
         en = findViewById(R.id.English);
         //kiem tra ngon ngu ban dau
         final Locale current = getResources().getConfiguration().locale;
-        if (current.toString().contains("vi")){
+        if (LANGUAGE.equals("vi")){
             vi.setChecked(true);
         }
-        if (current.toString().contains("en")){
+        if (LANGUAGE.equals("en")){
             en.setChecked(true);
         }
         //thay doi ngon ngu
