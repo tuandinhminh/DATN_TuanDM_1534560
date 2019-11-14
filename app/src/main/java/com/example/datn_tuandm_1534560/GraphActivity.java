@@ -57,13 +57,13 @@ public class GraphActivity extends AppCompatActivity {
             String week = selectAll().get(i).getDATE();
             double tong = Double.parseDouble(weeklyWorkout.get(i));
             yValues.add(new BarEntry(i,(float) tong));
-            labels.add("Week "+week);
+            labels.add(this.getResources().getString(R.string.week)+" "+week);
         }
 
-        BarDataSet barDataSet = new BarDataSet(yValues,"Weekly Workout");
+        BarDataSet barDataSet = new BarDataSet(yValues,this.getResources().getString(R.string.weekly_mileage));
         barDataSet.setColors(Color.DKGRAY);
         Description description = new Description();
-        description.setText("weeks");
+        description.setText(this.getResources().getString(R.string.week));
         mChart.setDescription(description);
         BarData barData = new BarData(barDataSet);
         mChart.setData(barData);
@@ -76,8 +76,7 @@ public class GraphActivity extends AppCompatActivity {
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(labels.size());
-//        xAxis.setLabelRotationAngle(270);
-        mChart.animateY(1500);
+        mChart.animateY(1000);
         mChart.invalidate();
 
     }
@@ -140,6 +139,7 @@ public class GraphActivity extends AppCompatActivity {
 
         return true;
     }
+    //ham doi ngon ngu
     public void changeLanguage(String language){
         Locale locale = new Locale(language);
         Configuration configuration = new Configuration();

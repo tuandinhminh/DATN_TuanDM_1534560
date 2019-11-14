@@ -323,6 +323,21 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             case "Rất khỏe":
                 tv.setTextColor(context.getResources().getColor(R.color.sky));
                 break;
+            case "Exhausted":
+                tv.setTextColor(context.getResources().getColor(R.color.red));
+                break;
+            case "Tired":
+                tv.setTextColor(context.getResources().getColor(R.color.orange));
+                break;
+            case "Good":
+                tv.setTextColor(context.getResources().getColor(R.color.yellow));
+                break;
+            case "Great":
+                tv.setTextColor(context.getResources().getColor(R.color.green));
+                break;
+            case "Excellent":
+                tv.setTextColor(context.getResources().getColor(R.color.sky));
+                break;
             default:
                 tv.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }

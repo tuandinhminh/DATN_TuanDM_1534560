@@ -102,31 +102,12 @@ public class CustomCalendarView extends LinearLayout {
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
                 final String[] eventFeel = new String[1];
-                eventFeel[0] = "Rất khỏe";
+                eventFeel[0] = context.getResources().getString(R.string.excellent);
                 final String[] eventType = new String[1];
                 seekBarFeel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                        if(i == 0){
-                            seekBar.setBackgroundColor(Color.RED);
-                            eventFeel[0] = "Rất mệt";
-                        }
-                        if(i == 1){
-                            seekBar.setBackgroundColor(Color.parseColor("#fa6c00"));
-                            eventFeel[0] = "Hơi mệt";
-                        }
-                        if(i == 2){
-                            seekBar.setBackgroundColor(Color.YELLOW);
-                            eventFeel[0] = "Bình thường";
-                        }
-                        if(i == 3){
-                            seekBarFeel.setBackgroundColor(Color.GREEN);
-                            eventFeel[0] = "Khỏe";
-                        }
-                        if(i == 4){
-                            seekBarFeel.setBackgroundColor(Color.parseColor("#00bcd4"));
-                            eventFeel[0] = "Rất khỏe";
-                        }
+                        setFeel(i,eventFeel,seekBar);
                     }
 
                     @Override
@@ -183,9 +164,9 @@ public class CustomCalendarView extends LinearLayout {
                     @Override
                     public void onClick(View view) {
                         if (eventdistance.getText().toString().equals("")){
-                            Toast.makeText(context, "Bạn phải điền quãng đường", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
                         }else if(duration.getRawText().toString().equals("")) {
-                            Toast.makeText(context, "Bạn phải điền thời gian", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
                         }else{
                             Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
                             calendar1.setTime(dates.get(i));
@@ -252,31 +233,12 @@ public class CustomCalendarView extends LinearLayout {
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
                 final String[] eventFeel = new String[1];
-                eventFeel[0] = "Rất khỏe";
+                eventFeel[0] = context.getResources().getString(R.string.excellent);
                 final String[] eventType = new String[1];
                 seekBarFeel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                        if(i == 0){
-                            seekBar.setBackgroundColor(Color.RED);
-                            eventFeel[0] = "Rất mệt";
-                        }
-                        if(i == 1){
-                            seekBar.setBackgroundColor(Color.parseColor("#fa6c00"));
-                            eventFeel[0] = "Hơi mệt";
-                        }
-                        if(i == 2){
-                            seekBar.setBackgroundColor(Color.YELLOW);
-                            eventFeel[0] = "Bình thường";
-                        }
-                        if(i == 3){
-                            seekBarFeel.setBackgroundColor(Color.GREEN);
-                            eventFeel[0] = "Khỏe";
-                        }
-                        if(i == 4){
-                            seekBarFeel.setBackgroundColor(Color.parseColor("#00bcd4"));
-                            eventFeel[0] = "Rất khỏe";
-                        }
+                        setFeel(i,eventFeel,seekBar);
                     }
 
                     @Override
@@ -334,9 +296,9 @@ public class CustomCalendarView extends LinearLayout {
                     @Override
                     public void onClick(View view) {
                         if (eventdistance.getText().toString().equals("")){
-                            Toast.makeText(context, "Bạn phải điền quãng đường", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
                         }else if(duration.getRawText().toString().equals("")) {
-                            Toast.makeText(context, "Bạn phải điền thời gian", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
                         }else{
                             Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
                             calendar1.setTime(calendar.getTime());
@@ -455,5 +417,28 @@ public class CustomCalendarView extends LinearLayout {
         }
         cursor.close();
         dbOpenHelper.close();
+    }
+
+    void setFeel(int i,String[] eventFeel,SeekBar seekBar){
+        if(i == 0){
+            seekBar.setBackgroundColor(Color.RED);
+            eventFeel[0] = context.getResources().getString(R.string.exhausted);
+        }
+        if(i == 1){
+            seekBar.setBackgroundColor(Color.parseColor("#fa6c00"));
+            eventFeel[0] = this.getResources().getString(R.string.tired);
+        }
+        if(i == 2){
+            seekBar.setBackgroundColor(Color.YELLOW);
+            eventFeel[0] = this.getResources().getString(R.string.good);
+        }
+        if(i == 3){
+            seekBar.setBackgroundColor(Color.GREEN);
+            eventFeel[0] = this.getResources().getString(R.string.great);
+        }
+        if(i == 4){
+            seekBar.setBackgroundColor(Color.parseColor("#00bcd4"));
+            eventFeel[0] = this.getResources().getString(R.string.excellent);
+        }
     }
 }

@@ -26,4 +26,12 @@
     <string name="we">Tư</string>
     <string name="en">Tiếng Anh</string>
     <string name="vi">Tiếng Việt</string>
+    <string name="alert1">Bạn phải điền quãng đường</string>
+    <string name="alert2">Bạn phải điền thời gian</string>
+    <string name="excellent">Rất khỏe</string>
+    <string name="exhausted">Kiệt sức</string>
+    <string name="good">Bình thường</string>
+    <string name="great">Tuyệt vời</string>
+    <string name="tired">Mệt</string>
+    <string name="week">Tuần</string>
 </resources>

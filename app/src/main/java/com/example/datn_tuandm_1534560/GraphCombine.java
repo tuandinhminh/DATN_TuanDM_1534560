@@ -1,6 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -26,7 +27,9 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 
 public class GraphCombine extends AppCompatActivity {
@@ -36,6 +39,9 @@ public class GraphCombine extends AppCompatActivity {
     ArrayList<String> labels1,labels2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_combine);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,7 +103,7 @@ public class GraphCombine extends AppCompatActivity {
 
         //tao ra du lieu line
         LineData d = new LineData();
-        LineDataSet set = new LineDataSet(lineEntries, "Line");
+        LineDataSet set = new LineDataSet(lineEntries, "Pace");
         //set.setColor(Color.rgb(240, 238, 70));
         set.setColors(ColorTemplate.COLORFUL_COLORS);
         set.setLineWidth(2.5f);
@@ -112,7 +118,7 @@ public class GraphCombine extends AppCompatActivity {
         d.addDataSet(set);
 
         //tao ra du kieu bar
-        BarDataSet set1 = new BarDataSet(barEntries, "Bar");
+        BarDataSet set1 = new BarDataSet(barEntries, this.getResources().getString(R.string.distance));
         set1.setColor(Color.rgb(60, 60, 60));
         set1.setValueTextColor(Color.rgb(0, 0, 0));
         set1.setValueTextSize(10f);
@@ -150,8 +156,8 @@ public class GraphCombine extends AppCompatActivity {
         xAxis.setAxisMaximum(data.getXMax() + 0.24f);
         xAxis.setAxisMinimum(data.getXMin() - 0.24f);
         mChart.setData(data);
-        mChart.animateY(1500);
-        mChart.animateX(1500);
+        mChart.animateY(1000);
+        mChart.animateX(1000);
         mChart.invalidate();
     }
     //Ham lay du lieu tu database
@@ -207,7 +213,13 @@ public class GraphCombine extends AppCompatActivity {
 //            menu.getItem(1).setEnabled(false);
         // You can also use something like:
         menu.findItem(R.id.action_combine).setEnabled(false);
-
         return true;
+    }
+    //ham doi ngon ngu
+    public void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 }
