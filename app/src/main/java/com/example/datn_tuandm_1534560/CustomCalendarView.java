@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static com.example.datn_tuandm_1534560.MainActivity.interstitialAd;
 
 public class CustomCalendarView extends LinearLayout {
     ImageButton previousButton,nextButton;
@@ -176,6 +175,8 @@ public class CustomCalendarView extends LinearLayout {
                                     eventFeel[0],week);
                             SetUpCalendar();
                             alertDialog.dismiss();
+
+
                         }
                     }
                 });
@@ -216,12 +217,9 @@ public class CustomCalendarView extends LinearLayout {
         FAB.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View adapterView) {
-                if(interstitialAd.isLoaded()){
-                    interstitialAd.show();
-                }
-                else{
-                    Log.d("QQQ","ad hasn't been loaded");
-                }
+                //quay ve thang hien tai
+                calendar = Calendar.getInstance(Locale.ENGLISH);
+                SetUpCalendar();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(true);
                 final View addView = LayoutInflater.from(adapterView.getContext())
@@ -240,18 +238,13 @@ public class CustomCalendarView extends LinearLayout {
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                         setFeel(i,eventFeel,seekBar);
                     }
-
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-
                     }
-
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-
                     }
                 });
-
 
                 spinnerType.setAdapter(arrayAdapter1);
                 spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -259,10 +252,8 @@ public class CustomCalendarView extends LinearLayout {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         eventType[0] = type.get(i);
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
-
                     }
                 });
                 ImageButton setTime = addView.findViewById(R.id.seteventtime);
