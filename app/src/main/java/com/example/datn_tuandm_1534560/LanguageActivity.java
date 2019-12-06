@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 import java.util.Locale;
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 public class LanguageActivity extends AppCompatActivity {
     RadioGroup rg;
@@ -16,6 +17,12 @@ public class LanguageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage1("vi");
+        }
+        if (LANGUAGE.equals("en")){
+            changeLanguage1("en");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,5 +61,11 @@ public class LanguageActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
         Intent intent = new Intent(this,LanguageActivity.class);
         startActivity(intent);
+    }
+    public void changeLanguage1(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 }

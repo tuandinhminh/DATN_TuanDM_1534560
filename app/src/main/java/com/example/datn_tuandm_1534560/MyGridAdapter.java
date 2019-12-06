@@ -146,6 +146,21 @@ public class MyGridAdapter extends ArrayAdapter {
             case "Rất khỏe":
                 tv.setTextColor(getContext().getResources().getColor(R.color.sky));
                 break;
+            case "Exhausted":
+                tv.setTextColor(getContext().getResources().getColor(R.color.red));
+                break;
+            case "Tired":
+                tv.setTextColor(getContext().getResources().getColor(R.color.orange));
+                break;
+            case "Good":
+                tv.setTextColor(getContext().getResources().getColor(R.color.yellow));
+                break;
+            case "Great":
+                tv.setTextColor(getContext().getResources().getColor(R.color.green));
+                break;
+            case "Excellent":
+                tv.setTextColor(getContext().getResources().getColor(R.color.sky));
+                break;
                 default:
                     tv.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
         }

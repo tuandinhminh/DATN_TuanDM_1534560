@@ -39,6 +39,9 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<String> weeklyWorkout = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         super.onCreate(savedInstanceState);
         if (LANGUAGE.equals("vi")){
             changeLanguage("vi");
@@ -59,13 +62,13 @@ public class GraphActivity extends AppCompatActivity {
             String week = selectAll().get(i).getDATE();
             double tong = Double.parseDouble(weeklyWorkout.get(i));
             yValues.add(new BarEntry(i,(float) tong));
-            labels.add("Week "+week);
+            labels.add(this.getResources().getString(R.string.week)+" "+week);
         }
 
-        BarDataSet barDataSet = new BarDataSet(yValues,"Weekly Workout");
+        BarDataSet barDataSet = new BarDataSet(yValues,this.getResources().getString(R.string.weekly_mileage));
         barDataSet.setColors(Color.DKGRAY);
         Description description = new Description();
-        description.setText("weeks");
+        description.setText(this.getResources().getString(R.string.week));
         mChart.setDescription(description);
         BarData barData = new BarData(barDataSet);
         mChart.setData(barData);
@@ -78,8 +81,7 @@ public class GraphActivity extends AppCompatActivity {
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(labels.size());
-//        xAxis.setLabelRotationAngle(270);
-        mChart.animateY(1500);
+        mChart.animateY(1000);
         mChart.invalidate();
 
     }
@@ -146,5 +148,8 @@ public class GraphActivity extends AppCompatActivity {
         configuration.locale = locale;
         getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master1
 }

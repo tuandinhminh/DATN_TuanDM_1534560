@@ -1,6 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -20,6 +21,9 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 public class GraphAllWorkoutActivity extends AppCompatActivity {
     private BarChart mChart;
@@ -28,6 +32,9 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (LANGUAGE.equals("vi")){
+            changeLanguage("vi");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_all_workout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,7 +54,7 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
             labels.add(date);
         }
 
-        BarDataSet barDataSet = new BarDataSet(yValues,"All Workout");
+        BarDataSet barDataSet = new BarDataSet(yValues, this.getResources().getString(R.string.all_workout));
         barDataSet.setColor(Color.parseColor("#00BCD4"));
         Description description = new Description();
         description.setText("");
@@ -64,7 +71,7 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(labels.size());
 //        xAxis.setLabelRotationAngle(270);
-        mChart.animateY(1500);
+        mChart.animateY(1000);
         mChart.invalidate();
 
     }
@@ -123,5 +130,12 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
         menu.findItem(R.id.action_allworkout).setEnabled(false);
 
         return true;
+    }
+    //ham doi ngon ngu
+    public void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
 }

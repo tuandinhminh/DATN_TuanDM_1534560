@@ -15,6 +15,12 @@
     <string name="duration">Duration</string>
     <string name="run_type">Run Type</string>
     <string name="feel">Feel</string>
+    <string name="week">Week</string>
+    <string name="excellent">Excellent</string>
+    <string name="great">Great</string>
+    <string name="good">Good</string>
+    <string name="tired">Tired</string>
+    <string name="exhausted">Exhausted</string>
     <string name="language">Language</string>
     <string name="mo">Mo</string>
     <string name="tu">Tu</string>
@@ -25,4 +31,6 @@
     <string name="su">Su</string>
     <string name="en">English</string>
     <string name="vi">Vietnamese</string>
+    <string name="alert1">You have to type distance</string>
+    <string name="alert2">You have to type time</string>
 </resources>
