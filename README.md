@@ -6,3 +6,4 @@
  - Thống kê dưới giao diện biểu đồ
  - lưu trữ thông tin trên drive
  - Hỗ trợ đa ngôn ngữ
+ - Đặt thông báo các lần chạy theo lịch
