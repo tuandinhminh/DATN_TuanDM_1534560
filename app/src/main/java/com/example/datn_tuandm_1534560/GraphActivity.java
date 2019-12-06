@@ -148,8 +148,4 @@ public class GraphActivity extends AppCompatActivity {
         configuration.locale = locale;
         getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> master1
 }

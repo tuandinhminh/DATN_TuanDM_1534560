@@ -28,12 +28,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Locale;
-<<<<<<< HEAD
-=======
 
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
->>>>>>> master1
 
 public class GraphCombine extends AppCompatActivity {
     private CombinedChart mChart;

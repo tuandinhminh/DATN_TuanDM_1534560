@@ -38,11 +38,7 @@ public class MainActivity extends AppCompatActivity  {
     private CustomCalendarView customCalendarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
-        if(LANGUAGE.equals("vi")){
-=======
         if (LANGUAGE.equals("vi")){
->>>>>>> master1
             changeLanguage("vi");
         }
         super.onCreate(savedInstanceState);
