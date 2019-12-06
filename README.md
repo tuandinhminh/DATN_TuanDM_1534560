@@ -7,3 +7,4 @@
  - lưu trữ thông tin trên drive
  - Hỗ trợ đa ngôn ngữ
  - Đặt thông báo các lần chạy theo lịch
+ - Đặt google quảng cáo
