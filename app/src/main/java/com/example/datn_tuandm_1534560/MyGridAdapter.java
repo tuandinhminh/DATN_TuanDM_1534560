@@ -42,8 +42,7 @@ public class MyGridAdapter extends ArrayAdapter {
         int DayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
         int displayMonth = dateCalendar.get(Calendar.MONTH)+1;
         int displayYear = dateCalendar.get(Calendar.YEAR);
-        int currentMonth = currentDate.get(Calendar.MONTH)+1;
-        int currentYear = currentDate.get(Calendar.YEAR);
+
         View view = convertView;
         if (view == null){
             view = layoutInflater.inflate(R.layout.single_cell_layout,parent,false);
@@ -52,14 +51,23 @@ public class MyGridAdapter extends ArrayAdapter {
         TextView Day_Number = view.findViewById(R.id.calendar_day);
         TextView EventNumber = view.findViewById(R.id.events_id);
         Day_Number.setText(String.valueOf(DayNo));
-        Calendar eventCalendar = Calendar.getInstance();
-        if (DayNo == currentDate.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH)+1
-                && displayYear == eventCalendar.get(Calendar.YEAR)){
-            Day_Number.setTextColor(getContext().getResources().getColor(R.color.sky));
-            Day_Number.setPaintFlags(Day_Number.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        }
-        if (displayMonth == currentMonth && displayYear == currentYear){
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+        Calendar calendar1 = Calendar.getInstance();
+        int currentMonth = currentDate.get(Calendar.MONTH)+1;
+        int currentYear = currentDate.get(Calendar.YEAR);
+        //doi mau ngay hien tai
+
+        if (displayMonth == currentMonth && displayYear == currentYear) {
+            if(currentDate.get(Calendar.DAY_OF_YEAR) == dateCalendar.get(Calendar.DAY_OF_YEAR)
+                    && DayNo == currentDate.get(Calendar.DAY_OF_MONTH)
+                    && displayMonth == calendar1.get(Calendar.MONTH)+1
+                    && displayYear == calendar1.get(Calendar.YEAR)){
+                Day_Number.setTextColor(getContext().getResources().getColor(R.color.sky));
+                Day_Number.setPaintFlags(Day_Number.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            }else {
+                view.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+                Day_Number.setTextColor(Color.parseColor("#555555"));
+                view.setClickable(false);
+            }
         }
         else{
             view.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -67,26 +75,26 @@ public class MyGridAdapter extends ArrayAdapter {
             Day_Number.setTextColor(getContext().getResources().getColor(R.color.white));
         }
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        Calendar calendar1 = Calendar.getInstance();
+        List<String> arrayList = new ArrayList<>();
+        Calendar eventCalendar = Calendar.getInstance();
         for (int i = 0;i < events.size();i++){
-
             eventCalendar.setTime(ConvertStringToDate(events.get(i).getDATE()));
-
-            if (DayNo == eventCalendar.get(Calendar.DAY_OF_MONTH) &&
-                    calendar1.get(Calendar.WEEK_OF_YEAR) != eventCalendar.get(Calendar.WEEK_OF_YEAR)
-                    && displayMonth == eventCalendar.get(Calendar.MONTH)+1 && displayYear == eventCalendar.get(Calendar.YEAR)){
-
+            //kiem tra ngay co su kien co trung voi tuan hien tai hay khong
+            if (DayNo == eventCalendar.get(Calendar.DAY_OF_MONTH)
+                    && calendar1.get(Calendar.WEEK_OF_YEAR) != eventCalendar.get(Calendar.WEEK_OF_YEAR)
+                    && displayMonth == eventCalendar.get(Calendar.MONTH)+1
+                    && displayYear == eventCalendar.get(Calendar.YEAR)){
                 arrayList.add(events.get(i).getEVENT());
                 EventNumber.setText(arrayList.size()+"");
-                Day_Number.setTextColor(getContext().getResources().getColor(R.color.purple));
+                Day_Number.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
                 Day_Number.setPaintFlags(Day_Number.getPaintFlags()| Paint.FAKE_BOLD_TEXT_FLAG);
                 FeelColors(events.get(i).getFEEL(),EventNumber);
 
             }
-            if(DayNo == eventCalendar.get(Calendar.DAY_OF_MONTH) &&
-                    calendar1.get(Calendar.WEEK_OF_YEAR) == eventCalendar.get(Calendar.WEEK_OF_YEAR) &&
-                    displayMonth == eventCalendar.get(Calendar.MONTH)+1 && displayYear == eventCalendar.get(Calendar.YEAR)){
+            if(DayNo == eventCalendar.get(Calendar.DAY_OF_MONTH)
+                    && calendar1.get(Calendar.WEEK_OF_YEAR) == eventCalendar.get(Calendar.WEEK_OF_YEAR)
+                    && displayMonth == eventCalendar.get(Calendar.MONTH)+1
+                    && displayYear == eventCalendar.get(Calendar.YEAR)){
 
                 arrayList.add(events.get(i).getEVENT());
                 EventNumber.setText(arrayList.size()+"");
@@ -94,7 +102,7 @@ public class MyGridAdapter extends ArrayAdapter {
                 FeelColors(events.get(i).getFEEL(),EventNumber);
                 if (calendar1.get(Calendar.DATE) != eventCalendar.get(Calendar.DATE)){
 
-                    Day_Number.setTextColor(getContext().getResources().getColor(R.color.purple));
+                    Day_Number.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
                 }
             }
 
@@ -102,7 +110,6 @@ public class MyGridAdapter extends ArrayAdapter {
 
         return view;
     }
-
     private Date ConvertStringToDate(String s){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         Date date = null;
@@ -129,18 +136,19 @@ public class MyGridAdapter extends ArrayAdapter {
     public int getPosition(@Nullable Object item) {
         return dates.indexOf(item);
     }
+
     private void FeelColors(String feel,TextView tv){
         switch (feel){
-            case "Rất mệt":
+            case "Kiệt sức":
                 tv.setTextColor(getContext().getResources().getColor(R.color.red));
                 break;
-            case "Hơi mệt":
+            case "Mệt":
                 tv.setTextColor(getContext().getResources().getColor(R.color.orange));
                 break;
             case "Bình thường":
                 tv.setTextColor(getContext().getResources().getColor(R.color.yellow));
                 break;
-            case "Khỏe":
+            case "Tuyệt vời":
                 tv.setTextColor(getContext().getResources().getColor(R.color.green));
                 break;
             case "Rất khỏe":
@@ -161,8 +169,8 @@ public class MyGridAdapter extends ArrayAdapter {
             case "Excellent":
                 tv.setTextColor(getContext().getResources().getColor(R.color.sky));
                 break;
-                default:
-                    tv.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            default:
+                tv.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
         }
     }
 }
