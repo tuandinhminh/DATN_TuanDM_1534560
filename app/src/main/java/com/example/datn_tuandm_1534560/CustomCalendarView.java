@@ -7,13 +7,11 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +27,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
 import com.santalu.maskedittext.MaskEditText;
 
 import java.text.SimpleDateFormat;
@@ -39,6 +36,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static com.example.datn_tuandm_1534560.ConstantVariables.*;
 
 
 public class CustomCalendarView extends LinearLayout {
@@ -357,21 +356,24 @@ public class CustomCalendarView extends LinearLayout {
         currentDate = view.findViewById(R.id.current_Date);
         gridView = view.findViewById(R.id.gridview);
         type = new ArrayList<String>();
-        type.add("Cruise");
-        type.add("Fartlek");
-        type.add("Tempo");
-        type.add("Intervals");
-        type.add("Easy");
-        type.add("Recovery");
-        type.add("Race");
-        type.add("Workout");
-        type.add("Long Run");
+        type.add(TYPE_CRUISE);
+        type.add(TYPE_FARTLEK);
+        type.add(TYPE_TEMPO);
+        type.add(TYPE_INTERVALS);
+        type.add(TYPE_EASY);
+        type.add(TYPE_RECOVERY);
+        type.add(TYPE_RACE);
+        type.add(TYPE_WORKOUT);
+        type.add(TYPE_LONG_RUN);
         arrayAdapter1 = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,type);
     }
 
     public static void SetUpCalendar(){
         String currentdate = dateFormat.format(calendar.getTime());
-        currentDate.setText(currentdate);
+        String currentMonth = monthFormat.format(calendar.getTime());
+        String currentYear = yearFormat.format(calendar.getTime());
+        monthConfig(currentDate, currentMonth);
+        currentDate.append(" " + currentYear);
         dates.clear();
         Calendar monthCalendar = (Calendar) calendar.clone();
         monthCalendar.set(Calendar.DAY_OF_MONTH,0);
@@ -430,6 +432,50 @@ public class CustomCalendarView extends LinearLayout {
         if(i == 4){
             seekBar.setBackgroundColor(Color.parseColor("#00bcd4"));
             eventFeel[0] = this.getResources().getString(R.string.excellent);
+        }
+    }
+
+    public static void monthConfig(TextView tv, String month){
+        switch (month){
+            case "January":
+                tv.setText(context.getResources().getString(R.string.jan));
+                break;
+            case "February":
+                tv.setText(context.getResources().getString(R.string.feb));
+                break;
+            case "March":
+                tv.setText(context.getResources().getString(R.string.mar));
+                break;
+            case "April":
+                tv.setText(context.getResources().getString(R.string.apr));
+                break;
+            case "May":
+                tv.setText(context.getResources().getString(R.string.may));
+                break;
+            case "June":
+                tv.setText(context.getResources().getString(R.string.jun));
+                break;
+            case "July":
+                tv.setText(context.getResources().getString(R.string.jul));
+                break;
+            case "August":
+                tv.setText(context.getResources().getString(R.string.aug));
+                break;
+            case "September":
+                tv.setText(context.getResources().getString(R.string.sep));
+                break;
+            case "October":
+                tv.setText(context.getResources().getString(R.string.oct));
+                break;
+            case "November":
+                tv.setText(context.getResources().getString(R.string.nov));
+                break;
+            case "December":
+                tv.setText(context.getResources().getString(R.string.dec));
+                break;
+                default:
+                    tv.setText("");
+
         }
     }
 }
