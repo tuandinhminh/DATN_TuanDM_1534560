@@ -10,25 +10,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
+import static com.example.datn_tuandm_1534560.DBStructure.WEEK_TOTAL;
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 
@@ -39,13 +34,13 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<String> weeklyWorkout = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (LANGUAGE.equals("vi")){
-            changeLanguage("vi");
+        if (LANGUAGE.equals(LAN_VI)){
+            changeLanguage(LAN_VI);
         }
         super.onCreate(savedInstanceState);
-        if (LANGUAGE.equals("vi")){
-            changeLanguage("vi");
-        }
+//        if (LANGUAGE.equals(LAN_VI)){
+//            changeLanguage(LAN_VI);
+//        }
         setContentView(R.layout.activity_graph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.weekly_mileage);
@@ -62,7 +57,7 @@ public class GraphActivity extends AppCompatActivity {
             String week = selectAll().get(i).getDATE();
             double tong = Double.parseDouble(weeklyWorkout.get(i));
             yValues.add(new BarEntry(i,(float) tong));
-            labels.add(this.getResources().getString(R.string.week)+" "+week);
+            labels.add(this.getResources().getString(R.string.week) + " " + week);
         }
 
         BarDataSet barDataSet = new BarDataSet(yValues,this.getResources().getString(R.string.weekly_mileage));
@@ -93,7 +88,7 @@ public class GraphActivity extends AppCompatActivity {
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
         Cursor cursor = dbOpenHelper.SelectAllByWeek(database);
         while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("ID"));
+            int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
             String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
             String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
@@ -104,8 +99,8 @@ public class GraphActivity extends AppCompatActivity {
             String type = cursor.getString(cursor.getColumnIndex(DBStructure.TYPE));
             String feel = cursor.getString(cursor.getColumnIndex(DBStructure.FEEL));
             String week = cursor.getString(cursor.getColumnIndex(DBStructure.WEEK_OF_YEAR));
-            String ww = cursor.getString(cursor.getColumnIndex("tong"));
-            Events events1 = new Events(event,time,date,month,year,distance,duration,type,feel,week,id);
+            String ww = cursor.getString(cursor.getColumnIndex(WEEK_TOTAL));
+            Events events1 = new Events(event, time, date, month, year, distance, duration, type, feel, week, id);
             events.add(events1);
             weeklyWorkout.add(ww);
         }
@@ -125,12 +120,12 @@ public class GraphActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_allworkout) {
-            Intent intent = new Intent(this,GraphAllWorkoutActivity.class);
+            Intent intent = new Intent(this, GraphAllWorkoutActivity.class);
             startActivity(intent);
 
         }
-        if(id == R.id.action_combine){
-            Intent intent = new Intent(this,GraphCombine.class);
+        if (id == R.id.action_combine){
+            Intent intent = new Intent(this, GraphCombine.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -138,7 +133,7 @@ public class GraphActivity extends AppCompatActivity {
     //disable menu hien tai
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-             menu.findItem(R.id.action_weekly).setEnabled(false);
+        menu.findItem(R.id.action_weekly).setEnabled(false);
         return true;
     }
     //ham doi ngon ngu

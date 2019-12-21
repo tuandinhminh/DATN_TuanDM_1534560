@@ -28,10 +28,10 @@
     <string name="vi">Tiếng Việt</string>
     <string name="alert1">Bạn phải điền quãng đường</string>
     <string name="alert2">Bạn phải điền thời gian</string>
-    <string name="excellent">Rất khỏe</string>
+    <string name="excellent">Rất tốt</string>
     <string name="exhausted">Kiệt sức</string>
     <string name="good">Bình thường</string>
-    <string name="great">Tuyệt vời</string>
+    <string name="great">Tốt</string>
     <string name="tired">Mệt</string>
     <string name="week">Tuần</string>
     <string name="apr">Tháng Tư</string>
@@ -46,4 +46,5 @@
     <string name="nov">Tháng Mười Một</string>
     <string name="oct">Tháng Mười</string>
     <string name="sep">Tháng Chín</string>
+    <string name="noti">Nhắc tôi</string>
 </resources>

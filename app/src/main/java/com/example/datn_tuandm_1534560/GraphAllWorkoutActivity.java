@@ -23,6 +23,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 public class GraphAllWorkoutActivity extends AppCompatActivity {
@@ -32,8 +33,8 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (LANGUAGE.equals("vi")){
-            changeLanguage("vi");
+        if (LANGUAGE.equals(LAN_VI)){
+            changeLanguage(LAN_VI);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_all_workout);
@@ -50,11 +51,11 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
             String date = selectAll().get(i).getDATE();
             String type = selectAll().get(i).getTYPE();
             double distance = selectAll().get(i).getDISTANCE();
-            yValues.add(new BarEntry(i,(float) distance));
+            yValues.add(new BarEntry(i, (float) distance));
             labels.add(date);
         }
 
-        BarDataSet barDataSet = new BarDataSet(yValues, this.getResources().getString(R.string.all_workout));
+        BarDataSet barDataSet = new BarDataSet(yValues,  this.getResources().getString(R.string.all_workout));
         barDataSet.setColor(Color.parseColor("#00BCD4"));
         Description description = new Description();
         description.setText("");
@@ -83,7 +84,7 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
         Cursor cursor = dbOpenHelper.ReadAllEvents(database);
         while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("ID"));
+            int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
             String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
             String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
@@ -94,7 +95,7 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
             String type = cursor.getString(cursor.getColumnIndex(DBStructure.TYPE));
             String feel = cursor.getString(cursor.getColumnIndex(DBStructure.FEEL));
             String week = cursor.getString(cursor.getColumnIndex(DBStructure.WEEK_OF_YEAR));
-            Events events1 = new Events(event,time,date,month,year,distance,duration,type,feel,week,id);
+            Events events1 = new Events(event, time, date, month, year, distance, duration, type, feel, week, id);
             events.add(events1);
         }
         cursor.close();
@@ -104,7 +105,7 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_graph, menu);
+        inflater.inflate(R.menu.menu_graph,  menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -113,12 +114,12 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_weekly) {
-            Intent intent = new Intent(this,GraphActivity.class);
+            Intent intent = new Intent(this, GraphActivity.class);
             startActivity(intent);
 
         }
         if(id == R.id.action_combine){
-            Intent intent = new Intent(this,GraphCombine.class);
+            Intent intent = new Intent(this, GraphCombine.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -136,6 +137,6 @@ public class GraphAllWorkoutActivity extends AppCompatActivity {
         Locale locale = new Locale(language);
         Configuration configuration = new Configuration();
         configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
     }
 }

@@ -6,19 +6,15 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.io.File;
@@ -27,18 +23,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-
+import static com.example.datn_tuandm_1534560.ConstantVariables.ADMOB_ID;
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
 import static com.example.datn_tuandm_1534560.CustomCalendarView.SetUpCalendar;
 import static com.example.datn_tuandm_1534560.CustomCalendarView.calendar;
 
 public class MainActivity extends AppCompatActivity  {
-    private AdView mAdView,mAdView1;
+    private AdView mAdView, mAdView1;
     public static String LANGUAGE = "en";
     private CustomCalendarView customCalendarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (LANGUAGE.equals("vi")){
-            changeLanguage("vi");
+        if (LANGUAGE.equals(LAN_VI)){
+            changeLanguage(LAN_VI);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
         //load quang cao
         mAdView = findViewById(R.id.adView);
         mAdView1 = findViewById(R.id.adView1);
-        MobileAds.initialize(this, "ca-app-pub-2298280937767584~4259105170");
+        MobileAds.initialize(this, ADMOB_ID);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mAdView1.loadAd(adRequest);
@@ -89,14 +86,14 @@ public class MainActivity extends AppCompatActivity  {
                 out.close();
                 //exporting
                 Context context = getApplicationContext();
-                File filelocation = new File(getFilesDir(),"data.csv");
-                Uri path = FileProvider.getUriForFile(context,"com.example.datn_tuandm_1534560.fileprovider",filelocation);
+                File filelocation = new File(getFilesDir(), "data.csv");
+                Uri path = FileProvider.getUriForFile(context, "com.example.datn_tuandm_1534560.fileprovider", filelocation);
                 Intent fileIntent = new Intent(Intent.ACTION_SEND);
                 fileIntent.setType("text/csv");
-                fileIntent.putExtra(Intent.EXTRA_SUBJECT,"Data");
+                fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Data");
                 fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                fileIntent.putExtra(Intent.EXTRA_STREAM,path);
-                startActivity(Intent.createChooser(fileIntent,"Export Data"));
+                fileIntent.putExtra(Intent.EXTRA_STREAM, path);
+                startActivity(Intent.createChooser(fileIntent, "Export Data"));
 
             }
             catch (Exception e){
@@ -116,7 +113,7 @@ public class MainActivity extends AppCompatActivity  {
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
         Cursor cursor = dbOpenHelper.ReadAllEvents(database);
         while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("ID"));
+            int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
             String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
             String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));

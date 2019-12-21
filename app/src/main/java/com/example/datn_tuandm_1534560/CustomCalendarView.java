@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,14 +50,8 @@ public class CustomCalendarView extends LinearLayout {
     static Context context;
     ArrayAdapter arrayAdapter1;
     ArrayList<String>type;
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy",Locale.ENGLISH);
-    static SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM",Locale.ENGLISH);
-    static SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy",Locale.ENGLISH);
-    static SimpleDateFormat eventDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
-
     static MyGridAdapter myGridAdapter;
     static AlertDialog alertDialog;
-
     static List<Date> dates = new ArrayList<>();
     static List<Events> eventsList = new ArrayList<>();
 
@@ -100,7 +93,8 @@ public class CustomCalendarView extends LinearLayout {
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
                 final String[] eventFeel = new String[1];
-                eventFeel[0] = context.getResources().getString(R.string.excellent);
+                //set default feel
+                eventFeel[0] = FEEL_EXCELLENT;
                 final String[] eventType = new String[1];
                 seekBarFeel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -147,7 +141,7 @@ public class CustomCalendarView extends LinearLayout {
                                         c.set(Calendar.HOUR_OF_DAY,i);
                                         c.set(Calendar.MINUTE,i1);
                                         c.setTimeZone(TimeZone.getDefault());
-                                        SimpleDateFormat hformat = new SimpleDateFormat("K:mm a",Locale.ENGLISH);
+                                        SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
                                         String event_Time = hformat.format(c.getTime());
                                         EventTime.setText(event_Time);
                                     }
@@ -170,7 +164,7 @@ public class CustomCalendarView extends LinearLayout {
                             calendar1.setTime(dates.get(i));
                             String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
                             SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
-                                    eventdistance.getText().toString(), duration.getRawText().toString(), eventType[0],
+                                    eventdistance.getText().toString(), duration.getRawText(), eventType[0],
                                     eventFeel[0],week);
                             SetUpCalendar();
                             alertDialog.dismiss();
@@ -314,7 +308,7 @@ public class CustomCalendarView extends LinearLayout {
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
         Cursor cursor = dbOpenHelper.ReadEvents(Date,database);
         while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("ID"));
+            int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
             String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
             String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
@@ -345,7 +339,6 @@ public class CustomCalendarView extends LinearLayout {
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
         dbOpenHelper.SaveEvent(event,time,date,month,year,distance,duration,type,feel,week,database);
         dbOpenHelper.close();
-        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
     }
     private void InitializeLayout(){
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -355,7 +348,7 @@ public class CustomCalendarView extends LinearLayout {
         FAB = view.findViewById(R.id.fab);
         currentDate = view.findViewById(R.id.current_Date);
         gridView = view.findViewById(R.id.gridview);
-        type = new ArrayList<String>();
+        type = new ArrayList<>();
         type.add(TYPE_CRUISE);
         type.add(TYPE_FARTLEK);
         type.add(TYPE_TEMPO);
@@ -369,7 +362,6 @@ public class CustomCalendarView extends LinearLayout {
     }
 
     public static void SetUpCalendar(){
-        String currentdate = dateFormat.format(calendar.getTime());
         String currentMonth = monthFormat.format(calendar.getTime());
         String currentYear = yearFormat.format(calendar.getTime());
         monthConfig(currentDate, currentMonth);
@@ -394,7 +386,7 @@ public class CustomCalendarView extends LinearLayout {
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
         Cursor cursor = dbOpenHelper.ReadEventsPerMonth(Month,Year,database);
         while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("ID"));
+            int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
             String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
             String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
@@ -414,63 +406,63 @@ public class CustomCalendarView extends LinearLayout {
 
     void setFeel(int i,String[] eventFeel,SeekBar seekBar){
         if(i == 0){
-            seekBar.setBackgroundColor(Color.RED);
-            eventFeel[0] = context.getResources().getString(R.string.exhausted);
+            seekBar.setBackgroundColor(context.getResources().getColor(R.color.red));
+            eventFeel[0] = FEEL_EXHAUSTED;
         }
         if(i == 1){
-            seekBar.setBackgroundColor(Color.parseColor("#fa6c00"));
-            eventFeel[0] = this.getResources().getString(R.string.tired);
+            seekBar.setBackgroundColor(context.getResources().getColor(R.color.orange));
+            eventFeel[0] = FEEL_TIRED;
         }
         if(i == 2){
-            seekBar.setBackgroundColor(Color.YELLOW);
-            eventFeel[0] = this.getResources().getString(R.string.good);
+            seekBar.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+            eventFeel[0] = FEEL_GOOD;
         }
         if(i == 3){
-            seekBar.setBackgroundColor(Color.GREEN);
-            eventFeel[0] = this.getResources().getString(R.string.great);
+            seekBar.setBackgroundColor(context.getResources().getColor(R.color.green));
+            eventFeel[0] = FEEL_GREAT;
         }
         if(i == 4){
-            seekBar.setBackgroundColor(Color.parseColor("#00bcd4"));
-            eventFeel[0] = this.getResources().getString(R.string.excellent);
+            seekBar.setBackgroundColor(context.getResources().getColor(R.color.sky));
+            eventFeel[0] = FEEL_EXCELLENT;
         }
     }
 
     public static void monthConfig(TextView tv, String month){
         switch (month){
-            case "January":
+            case JAN:
                 tv.setText(context.getResources().getString(R.string.jan));
                 break;
-            case "February":
+            case FEB:
                 tv.setText(context.getResources().getString(R.string.feb));
                 break;
-            case "March":
+            case MAR:
                 tv.setText(context.getResources().getString(R.string.mar));
                 break;
-            case "April":
+            case APR:
                 tv.setText(context.getResources().getString(R.string.apr));
                 break;
-            case "May":
+            case MAY:
                 tv.setText(context.getResources().getString(R.string.may));
                 break;
-            case "June":
+            case JUN:
                 tv.setText(context.getResources().getString(R.string.jun));
                 break;
-            case "July":
+            case JUL:
                 tv.setText(context.getResources().getString(R.string.jul));
                 break;
-            case "August":
+            case AUG:
                 tv.setText(context.getResources().getString(R.string.aug));
                 break;
-            case "September":
+            case SEP:
                 tv.setText(context.getResources().getString(R.string.sep));
                 break;
-            case "October":
+            case OCT:
                 tv.setText(context.getResources().getString(R.string.oct));
                 break;
-            case "November":
+            case NOV:
                 tv.setText(context.getResources().getString(R.string.nov));
                 break;
-            case "December":
+            case DEC:
                 tv.setText(context.getResources().getString(R.string.dec));
                 break;
                 default:

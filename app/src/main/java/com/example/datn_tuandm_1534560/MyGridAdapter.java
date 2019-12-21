@@ -139,21 +139,6 @@ public class MyGridAdapter extends ArrayAdapter {
 
     private void FeelColors(String feel,TextView tv){
         switch (feel){
-            case "Kiệt sức":
-                tv.setTextColor(getContext().getResources().getColor(R.color.red));
-                break;
-            case "Mệt":
-                tv.setTextColor(getContext().getResources().getColor(R.color.orange));
-                break;
-            case "Bình thường":
-                tv.setTextColor(getContext().getResources().getColor(R.color.yellow));
-                break;
-            case "Tuyệt vời":
-                tv.setTextColor(getContext().getResources().getColor(R.color.green));
-                break;
-            case "Rất khỏe":
-                tv.setTextColor(getContext().getResources().getColor(R.color.sky));
-                break;
             case "Exhausted":
                 tv.setTextColor(getContext().getResources().getColor(R.color.red));
                 break;

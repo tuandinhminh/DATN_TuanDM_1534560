@@ -22,13 +22,15 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
+import static com.example.datn_tuandm_1534560.ConstantVariables.METRIC_KM;
+import static com.example.datn_tuandm_1534560.ConstantVariables.PACE;
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 
@@ -39,15 +41,15 @@ public class GraphCombine extends AppCompatActivity {
     ArrayList<String> labels1,labels2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (LANGUAGE.equals("vi")){
-            changeLanguage("vi");
+        if (LANGUAGE.equals(LAN_VI)){
+            changeLanguage(LAN_VI);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_combine);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.combined);
         mChart = findViewById(R.id.graph_combine);
-        mChart.getDescription().setText("km");
+        mChart.getDescription().setText(METRIC_KM);
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(true);
         mChart.setDrawGridBackground(true);
@@ -78,7 +80,7 @@ public class GraphCombine extends AppCompatActivity {
             int hours = duration/10000,
                     minutes = (duration%10000)/100,
                     seconds = (duration%10000)%100;
-            if(seconds >= 60){
+            if (seconds >= 60){
                 minutes+=1;
                 seconds-=60;
             }
@@ -95,15 +97,15 @@ public class GraphCombine extends AppCompatActivity {
                 minutes%=60;
             }
             String minute = minutes+"",second = seconds+"";
-            if(minutes < 10) minute = "0"+minute;
+            if (minutes < 10) minute = "0"+minute;
             if (seconds < 10) second = "0"+second;
             lineEntries.add(new Entry(i,(float)pace/60));
-            labels2.add(hours+":"+minute+":"+second + "/km");
+            labels2.add(hours+":"+minute+":"+second + "/" + METRIC_KM);
         }
 
         //tao ra du lieu line
         LineData d = new LineData();
-        LineDataSet set = new LineDataSet(lineEntries, "Pace");
+        LineDataSet set = new LineDataSet(lineEntries, PACE);
         //set.setColor(Color.rgb(240, 238, 70));
         set.setColors(ColorTemplate.COLORFUL_COLORS);
         set.setLineWidth(2.5f);

@@ -140,15 +140,25 @@
             android:layout_marginHorizontal="35dp"
             android:id="@+id/seteventtime"
             ></ImageButton>
+
         <TextView
+            android:id="@+id/eventtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00 AM"
             android:gravity="center"
-            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:text="00:00 AM"
+            android:textSize="20sp"></TextView>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti"
+            android:id="@+id/alarmMe"
             android:layout_margin="10dp"
-            android:id="@+id/eventtime"
-            ></TextView>
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            ></CheckBox>
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"

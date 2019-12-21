@@ -80,6 +80,7 @@
                 android:textStyle="bold"
                 android:text="Time"
                 android:textSize="20dp"></TextView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
                     android:text="@string/edit"
                     android:textAllCaps="false"
                     android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="20dp">
+                    android:layout_marginHorizontal="10dp">
 
                 </Button>
                 <Button
@@ -102,9 +103,16 @@
                     android:text="@string/delete"
                     android:textAllCaps="false"
                     android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="10dp"
                     ></Button>
-
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/alarmMeBtn"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_noti_off"
+                    android:layout_marginHorizontal="10dp"
+                    ></ImageButton>
             </LinearLayout>
 
         </LinearLayout>

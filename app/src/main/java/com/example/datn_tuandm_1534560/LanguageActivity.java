@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_EN;
+import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
 import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
+
 import java.util.Locale;
-import static com.example.datn_tuandm_1534560.MainActivity.LANGUAGE;
 
 public class LanguageActivity extends AppCompatActivity {
     RadioGroup rg;
@@ -17,11 +19,11 @@ public class LanguageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (LANGUAGE.equals("vi")){
-            changeLanguage1("vi");
+        if (LANGUAGE.equals(LAN_VI)){
+            changeLanguage1(LAN_VI);
         }
-        if (LANGUAGE.equals("en")){
-            changeLanguage1("en");
+        if (LANGUAGE.equals(LAN_EN)){
+            changeLanguage1(LAN_EN);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
@@ -32,10 +34,10 @@ public class LanguageActivity extends AppCompatActivity {
         en = findViewById(R.id.English);
         //kiem tra ngon ngu ban dau
         final Locale current = getResources().getConfiguration().locale;
-        if (LANGUAGE.equals("vi")){
+        if (LANGUAGE.equals(LAN_VI)){
             vi.setChecked(true);
         }
-        if (LANGUAGE.equals("en")){
+        if (LANGUAGE.equals(LAN_EN)){
             en.setChecked(true);
         }
         //thay doi ngon ngu
@@ -43,12 +45,12 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.Vietnamese){
-                    changeLanguage("vi");
-                    LANGUAGE = "vi";
+                    changeLanguage(LAN_VI);
+                    LANGUAGE = LAN_VI;
                 }
                 if (i == R.id.English){
-                    changeLanguage("en");
-                    LANGUAGE = "en";
+                    changeLanguage(LAN_EN);
+                    LANGUAGE = LAN_EN;
                 }
             }
         });

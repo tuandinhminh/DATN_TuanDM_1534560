@@ -14,5 +14,7 @@ public class DBStructure {
     public static final String TYPE = "type";
     public static final String FEEL = "feel";
     public static final String WEEK_OF_YEAR = "week";
-//    public static final String NOTIFICATION = "notification";
+    public static final String ID = "ID";
+    public static final String NOTIFICATION = "notification";
+    public static final String WEEK_TOTAL = "tong";
 }
