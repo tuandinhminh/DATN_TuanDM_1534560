@@ -1,9 +1,12 @@
 package com.example.datn_tuandm_1534560;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -54,6 +58,7 @@ public class CustomCalendarView extends LinearLayout {
     static AlertDialog alertDialog;
     static List<Date> dates = new ArrayList<>();
     static List<Events> eventsList = new ArrayList<>();
+    int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute;
 
     public CustomCalendarView(Context context) {
         super(context);
@@ -92,6 +97,10 @@ public class CustomCalendarView extends LinearLayout {
                 final EditText eventdistance = addView.findViewById(R.id.eventdistance);
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
+
+                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
+                String event_Time = hformat.format(calendar.getTime());
+                EventTime.setText(event_Time);
                 final String[] eventFeel = new String[1];
                 //set default feel
                 eventFeel[0] = FEEL_EXCELLENT;
@@ -125,12 +134,19 @@ public class CustomCalendarView extends LinearLayout {
 
                     }
                 });
+                //set time button
                 ImageButton setTime = addView.findViewById(R.id.seteventtime);
+                //Alarm button
+                final CheckBox alarmMe = addView.findViewById(R.id.alarmMe);
+                calendar.setTime(dates.get(i));
+                alarmYear = calendar.get(Calendar.YEAR);
+                alarmMonth = calendar.get(Calendar.MONTH);
+                alarmDay = calendar.get(Calendar.DAY_OF_MONTH);
+
                 Button AddEvent = addView.findViewById(R.id.addevent);
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final Calendar calendar = Calendar.getInstance();
                         int hours = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutes = calendar.get(Calendar.MINUTE);
                         TimePickerDialog timePickerDialog = new TimePickerDialog(addView.getContext(), R.style.Theme_AppCompat_Dialog,
@@ -141,9 +157,10 @@ public class CustomCalendarView extends LinearLayout {
                                         c.set(Calendar.HOUR_OF_DAY,i);
                                         c.set(Calendar.MINUTE,i1);
                                         c.setTimeZone(TimeZone.getDefault());
-                                        SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
                                         String event_Time = hformat.format(c.getTime());
                                         EventTime.setText(event_Time);
+                                        alarmHour = c.get(Calendar.HOUR_OF_DAY);
+                                        alarmMinute = c.get(Calendar.MINUTE);
                                     }
                                 },hours,minutes,false);
                         timePickerDialog.show();
@@ -155,22 +172,45 @@ public class CustomCalendarView extends LinearLayout {
                 AddEvent.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (eventdistance.getText().toString().equals("")){
-                            Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
-                        }else if(duration.getRawText().toString().equals("")) {
-                            Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
-                        }else{
-                            Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
-                            calendar1.setTime(dates.get(i));
-                            String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
-                            SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
-                                    eventdistance.getText().toString(), duration.getRawText(), eventType[0],
-                                    eventFeel[0],week);
-                            SetUpCalendar();
-                            alertDialog.dismiss();
-
-
+                        if (alarmMe.isChecked()){
+                            if (eventdistance.getText().toString().equals("")){
+                                Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
+                            }else if(duration.getRawText().equals("")) {
+                                Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
+                            }else{
+                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
+                                calendar1.setTime(dates.get(i));
+                                String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
+                                SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
+                                        eventdistance.getText().toString(), duration.getRawText(), eventType[0],
+                                        eventFeel[0], week, NOTI_ON);
+                                SetUpCalendar();
+                                //set alarm
+                                Calendar _calendar = Calendar.getInstance();
+                                _calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
+                                setAlarm(_calendar, eventName.getText().toString(),EventTime.getText().toString(),
+                                        getRequestCode(date, eventName.getText().toString(),EventTime.getText().toString()));
+                                //
+                                alertDialog.dismiss();
+                            }
                         }
+                        else {
+                            if (eventdistance.getText().toString().equals("")){
+                                Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
+                            }else if(duration.getRawText().equals("")) {
+                                Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
+                            }else{
+                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
+                                calendar1.setTime(dates.get(i));
+                                String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
+                                SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
+                                        eventdistance.getText().toString(), duration.getRawText(), eventType[0],
+                                        eventFeel[0], week, NOTI_OFF);
+                                SetUpCalendar();
+                                alertDialog.dismiss();
+                            }
+                        }
+
                     }
                 });
                 builder.setView(addView);
@@ -210,9 +250,10 @@ public class CustomCalendarView extends LinearLayout {
         FAB.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View adapterView) {
-                //quay ve thang hien tai
-                calendar = Calendar.getInstance(Locale.ENGLISH);
+                //return to current month
+                calendar = Calendar.getInstance(Locale.ENGLISH); // mandatory
                 SetUpCalendar();
+                //
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(true);
                 final View addView = LayoutInflater.from(adapterView.getContext())
@@ -223,8 +264,12 @@ public class CustomCalendarView extends LinearLayout {
                 final EditText eventdistance = addView.findViewById(R.id.eventdistance);
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
+
+                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
+                String event_Time = hformat.format(calendar.getTime());
+                EventTime.setText(event_Time);
                 final String[] eventFeel = new String[1];
-                eventFeel[0] = context.getResources().getString(R.string.excellent);
+                eventFeel[0] = FEEL_EXCELLENT;
                 final String[] eventType = new String[1];
                 seekBarFeel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -250,11 +295,16 @@ public class CustomCalendarView extends LinearLayout {
                     }
                 });
                 ImageButton setTime = addView.findViewById(R.id.seteventtime);
+                //Alarm button
+                final CheckBox alarmMe = addView.findViewById(R.id.alarmMe);
+                calendar.setTime(calendar.getTime());
+                alarmYear = calendar.get(Calendar.YEAR);
+                alarmMonth = calendar.get(Calendar.MONTH);
+                alarmDay = calendar.get(Calendar.DAY_OF_MONTH);
                 Button AddEvent = addView.findViewById(R.id.addevent);
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final Calendar calendar = Calendar.getInstance();
                         int hours = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutes = calendar.get(Calendar.MINUTE);
                         TimePickerDialog timePickerDialog = new TimePickerDialog(addView.getContext(), R.style.Theme_AppCompat_Dialog,
@@ -265,9 +315,10 @@ public class CustomCalendarView extends LinearLayout {
                                         c.set(Calendar.HOUR_OF_DAY,i);
                                         c.set(Calendar.MINUTE,i1);
                                         c.setTimeZone(TimeZone.getDefault());
-                                        SimpleDateFormat hformat = new SimpleDateFormat("K:mm a",Locale.ENGLISH);
                                         String event_Time = hformat.format(c.getTime());
                                         EventTime.setText(event_Time);
+                                        alarmHour = c.get(Calendar.HOUR_OF_DAY);
+                                        alarmMinute = c.get(Calendar.MINUTE);
                                     }
                                 },hours,minutes,false);
                         timePickerDialog.show();
@@ -279,19 +330,43 @@ public class CustomCalendarView extends LinearLayout {
                 AddEvent.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (eventdistance.getText().toString().equals("")){
-                            Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
-                        }else if(duration.getRawText().toString().equals("")) {
-                            Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
-                        }else{
-                            Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
-                            calendar1.setTime(calendar.getTime());
-                            String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
-                            SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
-                                    eventdistance.getText().toString(), duration.getRawText().toString(), eventType[0],
-                                    eventFeel[0],week);
-                            SetUpCalendar();
-                            alertDialog.dismiss();
+                        if (alarmMe.isChecked()){
+                            if (eventdistance.getText().toString().equals("")) {
+                                Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
+                            } else if (duration.getRawText().equals("")) {
+                                Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
+                                calendar1.setTime(calendar.getTime());
+                                String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
+                                SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
+                                        eventdistance.getText().toString(), duration.getRawText(), eventType[0],
+                                        eventFeel[0], week, NOTI_ON);
+                                SetUpCalendar();
+                                //set alarm
+                                Calendar _calendar = Calendar.getInstance();
+                                _calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
+                                setAlarm(_calendar, eventName.getText().toString(),EventTime.getText().toString(),
+                                        getRequestCode(date, eventName.getText().toString(),EventTime.getText().toString()));
+                                //
+                                Toast.makeText(context, R.string.confirm_alarm, Toast.LENGTH_SHORT).show();
+                                alertDialog.dismiss();
+                            }
+                        } else {
+                            if (eventdistance.getText().toString().equals("")) {
+                                Toast.makeText(context, R.string.alert1, Toast.LENGTH_SHORT).show();
+                            } else if (duration.getRawText().equals("")) {
+                                Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
+                                calendar1.setTime(calendar.getTime());
+                                String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
+                                SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
+                                        eventdistance.getText().toString(), duration.getRawText(), eventType[0],
+                                        eventFeel[0], week, NOTI_OFF);
+                                SetUpCalendar();
+                                alertDialog.dismiss();
+                            }
                         }
                     }
                 });
@@ -302,11 +377,11 @@ public class CustomCalendarView extends LinearLayout {
         });
     }
 
-    private ArrayList<Events> CollectEventByDate(String Date){
+    private ArrayList<Events> CollectEventByDate(String _date){
         ArrayList<Events> events = new ArrayList<>();
         dbOpenHelper = new DBOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadEvents(Date,database);
+        Cursor cursor = dbOpenHelper.ReadEvents(_date,database);
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
@@ -327,17 +402,38 @@ public class CustomCalendarView extends LinearLayout {
         return events;
     }
 
+    private int getRequestCode(String _date, String event, String time){
+        int code = 0;
+        dbOpenHelper = new DBOpenHelper(context);
+        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
+        Cursor cursor = dbOpenHelper.ReadIDEvents(_date, event, time, database);
+        while(cursor.moveToNext()){
+            code = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
+        }
+        cursor.close();
+        dbOpenHelper.close();
+        return  code;
+    }
 
+    public void setAlarm(Calendar calendar, String event, String time, int requestCode){
+        Intent intent = new Intent(context.getApplicationContext(), AlarmReceiver.class);
+        intent.putExtra("event", event);
+        intent.putExtra("time", time);
+        intent.putExtra("id", requestCode);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager)context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
 
     public CustomCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     private void SaveEvent(String event,String time,String date,String month,String year,String distance,String duration,
-                           String type,String feel,String week){
+                           String type,String feel,String week, String noti){
         dbOpenHelper = new DBOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.SaveEvent(event,time,date,month,year,distance,duration,type,feel,week,database);
+        dbOpenHelper.SaveEvent(event, time, date, month, year, distance, duration, type, feel, week, noti, database);
         dbOpenHelper.close();
     }
     private void InitializeLayout(){
@@ -368,12 +464,13 @@ public class CustomCalendarView extends LinearLayout {
         currentDate.append(" " + currentYear);
         dates.clear();
         Calendar monthCalendar = (Calendar) calendar.clone();
-        monthCalendar.set(Calendar.DAY_OF_MONTH,0);
-        int firstDayofMonth = monthCalendar.get(Calendar.DAY_OF_WEEK)-2;
+        monthCalendar.set(Calendar.DAY_OF_MONTH, 0);
+        int firstDayofMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) - 2;
         monthCalendar.add(Calendar.DAY_OF_MONTH,-firstDayofMonth);
-        CollectEventsPerMonth(monthFormat.format(calendar.getTime()),yearFormat.format(calendar.getTime()));
+        CollectEventsPerMonth(monthFormat.format(calendar.getTime()), yearFormat.format(calendar.getTime()));
         while(dates.size() < MAX_CALENDAR_DAYS){
             dates.add(monthCalendar.getTime());
+            //1 day step between days
             monthCalendar.add(Calendar.DAY_OF_MONTH,1);
         }
         myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
@@ -384,7 +481,7 @@ public class CustomCalendarView extends LinearLayout {
         eventsList.clear();
         dbOpenHelper = new DBOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadEventsPerMonth(Month,Year,database);
+        Cursor cursor = dbOpenHelper.ReadEventsPerMonth(Month, Year, database);
         while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
             String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
@@ -397,7 +494,7 @@ public class CustomCalendarView extends LinearLayout {
             String type = cursor.getString(cursor.getColumnIndex(DBStructure.TYPE));
             String feel = cursor.getString(cursor.getColumnIndex(DBStructure.FEEL));
             String week = cursor.getString(cursor.getColumnIndex(DBStructure.WEEK_OF_YEAR));
-            Events events = new Events(event,time,date,month,year,distance,duration,type,feel,week,id);
+            Events events = new Events(event, time, date, month, year, distance, duration, type, feel, week, id);
             eventsList.add(events);
         }
         cursor.close();

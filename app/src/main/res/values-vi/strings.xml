@@ -47,4 +47,6 @@
     <string name="oct">Tháng Mười</string>
     <string name="sep">Tháng Chín</string>
     <string name="noti">Nhắc tôi</string>
+    <string name="confirm_alarm">Đã bật thông báo</string>
+    <string name="confirm_delete">Đã xóa</string>
 </resources>

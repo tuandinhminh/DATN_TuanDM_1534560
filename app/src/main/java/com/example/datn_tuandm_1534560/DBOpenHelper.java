@@ -3,10 +3,8 @@ package com.example.datn_tuandm_1534560;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import static com.example.datn_tuandm_1534560.DBStructure.WEEK_TOTAL;
@@ -41,7 +39,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public  void SaveEvent(String event, String time, String date, String month, String year, String distance, String duration,
-                            String type, String feel, String week, SQLiteDatabase db){
+                            String type, String feel, String week,String noti, SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBStructure.EVENT, event);
         contentValues.put(DBStructure.TIME, time);
@@ -52,30 +50,31 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         contentValues.put(DBStructure.DURATION,duration);
         contentValues.put(DBStructure.TYPE, type);
         contentValues.put(DBStructure.FEEL, feel);
-        contentValues.put(DBStructure.WEEK_OF_YEAR,week);
+        contentValues.put(DBStructure.WEEK_OF_YEAR, week);
+        contentValues.put(DBStructure.NOTIFICATION, noti);
         db.insert(DBStructure.EVENT_TABLE_NAME,null,contentValues);
     }
 
-    public Cursor ReadEvents(String date,SQLiteDatabase db){
+    public Cursor ReadEvents(String date, SQLiteDatabase db){
         String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH, DBStructure.YEAR,
                 DBStructure.DISTANCE, DBStructure.DURATION,DBStructure.TYPE,DBStructure.FEEL,DBStructure.WEEK_OF_YEAR};
         String Selection = DBStructure.DATE + "=?";
         String [] SelectionArgs = {date};
-        return db.query(DBStructure.EVENT_TABLE_NAME,Projections,Selection,SelectionArgs,null,null,null);
+        return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,null);
     }
 
     public Cursor ReadIDEvents(String date, String event, String time, SQLiteDatabase db){
         String [] Projections = {DBStructure.ID,DBStructure.NOTIFICATION};
         String Selection = DBStructure.DATE + "=? and " + DBStructure.EVENT +"=? and " + DBStructure.TIME + "=?";
         String [] SelectionArgs = {date, event, time};
-        return db.query(DBStructure.EVENT_TABLE_NAME,Projections,Selection,SelectionArgs,null,null,null);
+        return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,null);
     }
 
     public Cursor ReadAllEvents(SQLiteDatabase db){
-        String [] Projections = {DBStructure.ID,DBStructure.EVENT,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR,
-                DBStructure.DISTANCE,DBStructure.DURATION,DBStructure.TYPE,DBStructure.FEEL,DBStructure.WEEK_OF_YEAR};
+        String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH,
+            DBStructure.YEAR, DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL, DBStructure.WEEK_OF_YEAR};
 
-        return db.query(DBStructure.EVENT_TABLE_NAME,Projections,null,null,null,null,
+        return db.query(DBStructure.EVENT_TABLE_NAME, Projections,null,null,null,null,
                 DBStructure.DATE + " desc limit 12");
     }
 
@@ -84,18 +83,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 " group by "+DBStructure.WEEK_OF_YEAR+" order by "+DBStructure.WEEK_OF_YEAR+" desc limit 8",null);
     }
 
-    public Cursor ReadEventsPerMonth(String month,String year,SQLiteDatabase db){
-        String [] Projections = {DBStructure.ID,DBStructure.EVENT,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR,
-                DBStructure.DISTANCE,DBStructure.DURATION,DBStructure.TYPE,DBStructure.FEEL,DBStructure.WEEK_OF_YEAR};
+    public Cursor ReadEventsPerMonth(String month, String year, SQLiteDatabase db){
+        String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH, DBStructure.YEAR,
+                DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL, DBStructure.WEEK_OF_YEAR};
         String Selection = DBStructure.MONTH + "=? and " +DBStructure.YEAR+"=?";
-        String [] SelectionArgs = {month,year};
-        return db.query(DBStructure.EVENT_TABLE_NAME,Projections,Selection,SelectionArgs,null,null,null);
+        String [] SelectionArgs = {month, year};
+        return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,null);
     }
 
-    public void deleteEvent(String event,String date,String time,SQLiteDatabase database){
+    public void deleteEvent(String event, String date, String time, SQLiteDatabase database){
         String selection = DBStructure.EVENT+"=? and "+DBStructure.DATE+"=? and "+DBStructure.TIME+"=?";
-        String [] selectionArg = {event,date,time};
-        database.delete(DBStructure.EVENT_TABLE_NAME,selection,selectionArg);
+        String [] selectionArg = {event, date, time};
+        database.delete(DBStructure.EVENT_TABLE_NAME, selection, selectionArg);
 
     }
 
@@ -103,11 +102,19 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         database.execSQL("delete from " +DBStructure.EVENT_TABLE_NAME+" where ID = " + id);
     }
 
-    public void editEventByID(String id,String name,String distance,String duration,String type,String feel,
-                              String time,SQLiteDatabase database) {
-        database.execSQL("update " +DBStructure.EVENT_TABLE_NAME+" set "+ DBStructure.EVENT +" = '"+name+
-                "',"+ DBStructure.DISTANCE +" = "+ distance +","+ DBStructure.DURATION +" = '"+ duration +
-                "',"+DBStructure.TYPE+" = '"+ type +"',"+ DBStructure.FEEL +" = '"+ feel +"',"+DBStructure.TIME+" = '"+ time +
-                "' where ID = " + id);
+    public void editEventByID(String id, String name, String distance, String duration, String type, String feel,
+                              String time, SQLiteDatabase database) {
+        database.execSQL("update " + DBStructure.EVENT_TABLE_NAME + " set " + DBStructure.EVENT + " = '" + name +
+                "'," + DBStructure.DISTANCE + " = " + distance + "," + DBStructure.DURATION + " = '" + duration +
+                "'," + DBStructure.TYPE + " = '" + type + "'," + DBStructure.FEEL + " = '" + feel + "'," + DBStructure.TIME +
+                " = '" + time + "' where ID = " + id);
+    }
+
+    public void updateEvent(String date, String event, String time, String noti, SQLiteDatabase db){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBStructure.NOTIFICATION, noti);
+        String selection = DBStructure.EVENT + "=? and " + DBStructure.DATE + "=? and "+DBStructure.TIME + "=?";
+        String [] selectionArg = {event,date,time};
+        db.update(DBStructure.EVENT_TABLE_NAME, contentValues, selection, selectionArg);
     }
 }
