@@ -97,7 +97,7 @@ public class CustomCalendarView extends LinearLayout {
                 final EditText eventdistance = addView.findViewById(R.id.eventdistance);
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
-
+                Calendar calendar = Calendar.getInstance();
                 final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
                 String event_Time = hformat.format(calendar.getTime());
                 EventTime.setText(event_Time);
@@ -147,6 +147,7 @@ public class CustomCalendarView extends LinearLayout {
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Calendar calendar = Calendar.getInstance();
                         int hours = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutes = calendar.get(Calendar.MINUTE);
                         TimePickerDialog timePickerDialog = new TimePickerDialog(addView.getContext(), R.style.Theme_AppCompat_Dialog,
@@ -264,7 +265,7 @@ public class CustomCalendarView extends LinearLayout {
                 final EditText eventdistance = addView.findViewById(R.id.eventdistance);
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
-
+                Calendar calendar = Calendar.getInstance();
                 final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
                 String event_Time = hformat.format(calendar.getTime());
                 EventTime.setText(event_Time);
@@ -305,8 +306,9 @@ public class CustomCalendarView extends LinearLayout {
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int hours = calendar.get(Calendar.HOUR_OF_DAY);
-                        int minutes = calendar.get(Calendar.MINUTE);
+                        Calendar calendar1 = Calendar.getInstance();
+                        int hours = calendar1.get(Calendar.HOUR_OF_DAY);
+                        int minutes = calendar1.get(Calendar.MINUTE);
                         TimePickerDialog timePickerDialog = new TimePickerDialog(addView.getContext(), R.style.Theme_AppCompat_Dialog,
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @Override
@@ -336,8 +338,8 @@ public class CustomCalendarView extends LinearLayout {
                             } else if (duration.getRawText().equals("")) {
                                 Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
                             } else {
-                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
-                                calendar1.setTime(calendar.getTime());
+                                Calendar calendar1 = Calendar.getInstance();
+//                                calendar1.setTime(calendar.getTime());
                                 String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
                                 SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
                                         eventdistance.getText().toString(), duration.getRawText(), eventType[0],
@@ -358,8 +360,8 @@ public class CustomCalendarView extends LinearLayout {
                             } else if (duration.getRawText().equals("")) {
                                 Toast.makeText(context, R.string.alert2, Toast.LENGTH_SHORT).show();
                             } else {
-                                Calendar calendar1 = Calendar.getInstance(Locale.ENGLISH);
-                                calendar1.setTime(calendar.getTime());
+                                Calendar calendar1 = Calendar.getInstance();
+//                                calendar1.setTime(calendar.getTime());
                                 String week = calendar1.get(Calendar.WEEK_OF_YEAR) + "";
                                 SaveEvent(eventName.getText().toString(), EventTime.getText().toString(), date, month, year,
                                         eventdistance.getText().toString(), duration.getRawText(), eventType[0],
