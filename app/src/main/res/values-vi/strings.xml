@@ -49,4 +49,8 @@
     <string name="noti">Nhắc tôi</string>
     <string name="confirm_alarm">Đã bật thông báo</string>
     <string name="confirm_delete">Đã xóa</string>
+    <string name="confirm_import">Dữ liệu đã được nhập</string>
+    <string name="alert3">Không có dữ liệu</string>
+    <string name="import_data">Nhập dữ liệu</string>
+    <string name="confirm_export">Dữ liệu đã được xuất vào bộ nhớ</string>
 </resources>

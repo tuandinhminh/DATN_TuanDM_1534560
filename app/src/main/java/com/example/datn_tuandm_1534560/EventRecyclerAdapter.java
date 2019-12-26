@@ -40,6 +40,8 @@ import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_GOOD;
 import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_GREAT;
 import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_TIRED;
 import static com.example.datn_tuandm_1534560.ConstantVariables.METRIC_KM;
+import static com.example.datn_tuandm_1534560.ConstantVariables.NOTI_OFF;
+import static com.example.datn_tuandm_1534560.ConstantVariables.NOTI_ON;
 import static com.example.datn_tuandm_1534560.ConstantVariables.PACE;
 import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_CRUISE;
 import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_EASY;
@@ -299,7 +301,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                 if (isAlarmed(events.getDATE(), events.getEVENT(), events.getTIME())){
                     myViewHolder.setAlarm.setImageResource(R.drawable.ic_action_noti_off);
                     cancelAlarm(getRequestCode(events.getDATE(), events.getEVENT(), events.getTIME()));
-                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "off");
+                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), NOTI_OFF);
                     notifyDataSetChanged();
                 } else {
                     myViewHolder.setAlarm.setImageResource(R.drawable.ic_action_noti_on);
@@ -307,7 +309,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     alarmCalendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
                     setAlarm(alarmCalendar, events.getEVENT(), events.getTIME(),
                             getRequestCode(events.getDATE(), events.getEVENT(), events.getTIME()));
-                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "on");
+                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), NOTI_ON);
                     notifyDataSetChanged();
                 }
             }
@@ -392,7 +394,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         Cursor cursor = dbOpenHelper.ReadIDEvents(_date, event, time, database);
         while(cursor.moveToNext()){
             String noti = cursor.getString(cursor.getColumnIndex(DBStructure.NOTIFICATION));
-            if (noti.equals("on")){
+            if (noti.equals(NOTI_ON)){
                 alarmed = true;
             } else {
                 alarmed = false;
@@ -430,7 +432,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         }
         cursor.close();
         dbOpenHelper.close();
-        return  code;
+        return code;
     }
 
     private void updateEvent(String _date, String event, String time, String noti){

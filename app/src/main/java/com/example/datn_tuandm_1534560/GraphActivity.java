@@ -38,16 +38,11 @@ public class GraphActivity extends AppCompatActivity {
             changeLanguage(LAN_VI);
         }
         super.onCreate(savedInstanceState);
-//        if (LANGUAGE.equals(LAN_VI)){
-//            changeLanguage(LAN_VI);
-//        }
         setContentView(R.layout.activity_graph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.weekly_mileage);
 
         mChart = findViewById(R.id.bar_chart);
-//        mChart.setOnChartGestureListener(this);
-//        mChart.setOnChartValueSelectedListener(this);
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(true);
 

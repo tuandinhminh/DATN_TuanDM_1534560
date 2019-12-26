@@ -12,7 +12,7 @@ import static com.example.datn_tuandm_1534560.DBStructure.WEEK_TOTAL;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-    private final static String CREAT_EVENTS_TABLE = "create table if not exists "+DBStructure.EVENT_TABLE_NAME+"(" +
+    public final static String CREAT_EVENTS_TABLE = "create table if not exists "+DBStructure.EVENT_TABLE_NAME+"(" +
             DBStructure.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DBStructure.EVENT + " TEXT, "+DBStructure.TIME + " TEXT," +
             DBStructure.DATE + " TEXT,"+DBStructure.MONTH + " TEXT," +
@@ -20,7 +20,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             DBStructure.DURATION + " TEXT, "+DBStructure.TYPE + " TEXT," +
             DBStructure.FEEL + " TEXT," + DBStructure.WEEK_OF_YEAR+" TEXT," +
             DBStructure.NOTIFICATION + " TEXT)";
-    private static final String DROP_EVENTS_TABLE = "drop table if exists " +DBStructure.EVENT_TABLE_NAME;
+    public static final String DROP_EVENTS_TABLE = "drop table if exists " +DBStructure.EVENT_TABLE_NAME;
     public DBOpenHelper(@Nullable Context context) {
         super(context, DBStructure.DB_NAME, null, DBStructure.DB_VERSION);
     }
@@ -60,7 +60,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 DBStructure.DISTANCE, DBStructure.DURATION,DBStructure.TYPE,DBStructure.FEEL,DBStructure.WEEK_OF_YEAR};
         String Selection = DBStructure.DATE + "=?";
         String [] SelectionArgs = {date};
-        return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,null);
+        return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,
+                DBStructure.ID + " desc");
     }
 
     public Cursor ReadIDEvents(String date, String event, String time, SQLiteDatabase db){

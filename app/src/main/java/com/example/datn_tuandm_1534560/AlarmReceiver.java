@@ -24,7 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         CharSequence name = "channel_name";
         String description = "description";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(description);
             NotificationManager manager = context.getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
@@ -37,7 +37,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentText(time)
 //                .setDeleteIntent(pendingIntent)
                 .setContentIntent(pendingIntent)
-                .setGroup("Group_calendar_view")
                 .setAutoCancel(true)
                 .build();
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

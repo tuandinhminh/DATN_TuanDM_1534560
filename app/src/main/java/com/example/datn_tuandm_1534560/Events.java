@@ -1,7 +1,7 @@
 package com.example.datn_tuandm_1534560;
 
 public class Events {
-    String EVENT, TIME, DATE, MONTH, YEAR,DURATION,TYPE,FEEL,WEEK;
+    String EVENT, TIME, DATE, MONTH, YEAR,DURATION,TYPE,FEEL,WEEK,NOTI;
     int ID;
     double DISTANCE;
 
@@ -119,5 +119,13 @@ public class Events {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public String getNOTI() {
+        return NOTI;
+    }
+
+    public void setNOTI(String NOTI) {
+        this.NOTI = NOTI;
     }
 }

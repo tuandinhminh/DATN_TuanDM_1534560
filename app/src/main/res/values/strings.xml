@@ -3,6 +3,7 @@
     <string name="current_month">Current Month</string>
     <string name="graph">graph</string>
     <string name="export_data">Export Data</string>
+    <string name="import_data">Import Data</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -33,8 +34,11 @@
     <string name="vi">Vietnamese</string>
     <string name="alert1">You have to type distance</string>
     <string name="alert2">You have to type time</string>
+    <string name="alert3">Empty Data</string>
     <string name="confirm_alarm">Alarm set</string>
     <string name="confirm_delete">Deleted</string>
+    <string name="confirm_import">Data imported</string>
+    <string name="confirm_export">Data exported to external memory</string>
     <string name="jan">January</string>
     <string name="feb">February</string>
     <string name="mar">March</string>

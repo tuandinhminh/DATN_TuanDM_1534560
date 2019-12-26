@@ -44,4 +44,7 @@ public class ConstantVariables {
 
     public static final String NOTI_ON = "on";
     public static final String NOTI_OFF = "off";
+
+    public static final String DATA_PATH = "Running Log Pro";
+    public static final String DATA_NAME = "data.csv";
 }

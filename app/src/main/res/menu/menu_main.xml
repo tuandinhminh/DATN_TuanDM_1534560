@@ -18,6 +18,10 @@
         android:title="@string/export_data"
         app:showAsAction="never"></item>
     <item
+        android:id="@+id/action_import"
+        android:title="@string/import_data"
+        app:showAsAction="never"></item>
+    <item
         android:id="@+id/action_language"
         android:title="@string/language"
         app:showAsAction="never"></item>
