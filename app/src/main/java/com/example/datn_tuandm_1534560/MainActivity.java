@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity  {
                         StringBuilder sb = new StringBuilder(str1);
                         String[] str = line.split(",");
                         Toast.makeText(this, line, Toast.LENGTH_SHORT).show();
-                        sb.append(str[0] + ",'");
+                        sb.append(str[0].substring(1,str[0].length()-1) + ",'");
                         sb.append(str[1].substring(1,str[1].length()-1) + "','");
                         sb.append(str[2].substring(1,str[2].length()-1) + "','");
                         sb.append(str[3].substring(1,str[3].length()-1) + "','");

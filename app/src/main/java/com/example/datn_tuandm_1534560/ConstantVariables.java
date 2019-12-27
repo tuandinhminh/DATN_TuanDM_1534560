@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class ConstantVariables {
-    public static final String TYPE_CRUISE      = "Cruise";
+    public static final String TYPE_BASE      = "Base";
     public static final String TYPE_FARTLEK     = "Fartlek";
     public static final String TYPE_TEMPO       = "Tempo";
     public static final String TYPE_INTERVALS   = "Intervals";

@@ -43,7 +43,7 @@ import static com.example.datn_tuandm_1534560.ConstantVariables.METRIC_KM;
 import static com.example.datn_tuandm_1534560.ConstantVariables.NOTI_OFF;
 import static com.example.datn_tuandm_1534560.ConstantVariables.NOTI_ON;
 import static com.example.datn_tuandm_1534560.ConstantVariables.PACE;
-import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_CRUISE;
+import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_BASE;
 import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_EASY;
 import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_FARTLEK;
 import static com.example.datn_tuandm_1534560.ConstantVariables.TYPE_INTERVALS;
@@ -345,7 +345,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             type = new ArrayList<>();
             type.add("");
-            type.add(TYPE_CRUISE);
+            type.add(TYPE_BASE);
             type.add(TYPE_FARTLEK);
             type.add(TYPE_TEMPO);
             type.add(TYPE_INTERVALS);

@@ -447,7 +447,7 @@ public class CustomCalendarView extends LinearLayout {
         currentDate = view.findViewById(R.id.current_Date);
         gridView = view.findViewById(R.id.gridview);
         type = new ArrayList<>();
-        type.add(TYPE_CRUISE);
+        type.add(TYPE_BASE);
         type.add(TYPE_FARTLEK);
         type.add(TYPE_TEMPO);
         type.add(TYPE_INTERVALS);
