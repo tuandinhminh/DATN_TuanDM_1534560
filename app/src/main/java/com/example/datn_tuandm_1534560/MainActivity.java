@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity  {
             StringBuilder data = new StringBuilder();
             data.append("ID, Name, Time, Date, Month, Year, Distance, Duration, Type, Feel, Week, Notification");
             for(int i = 0; i < selectAll().size();i++){
-                data.append("\n"+ selectAll().get(i).getID() + ","+selectAll().get(i).getEVENT() + ","+
-                        selectAll().get(i).getTIME() + ","+selectAll().get(i).getDATE() + ","+
-                        selectAll().get(i).getMONTH() + ","+selectAll().get(i).getYEAR() + ","+
-                        selectAll().get(i).getDISTANCE() + ","+selectAll().get(i).getDURATION() + ","+
-                        selectAll().get(i).getTYPE() + ","+selectAll().get(i).getFEEL() + ","+
-                        selectAll().get(i).getWEEK() + "," + selectAll().get(i).getNOTI());
+                data.append("\n\""+ selectAll().get(i).getID() + "\",\""+selectAll().get(i).getEVENT() + "\",\""+
+                        selectAll().get(i).getTIME() + "\",\""+selectAll().get(i).getDATE() + "\",\""+
+                        selectAll().get(i).getMONTH() + "\",\""+selectAll().get(i).getYEAR() + "\",\""+
+                        selectAll().get(i).getDISTANCE() + "\",\""+selectAll().get(i).getDURATION() + "\",\""+
+                        selectAll().get(i).getTYPE() + "\",\""+selectAll().get(i).getFEEL() + "\",\""+
+                        selectAll().get(i).getWEEK() + "\",\"" + selectAll().get(i).getNOTI() + "\"" );
             }
             try {
                 //saving file into device
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity  {
                 Uri path = FileProvider.getUriForFile(context, "com.example.datn_tuandm_1534560.fileprovider", filelocation);
                 Intent fileIntent = new Intent(Intent.ACTION_SEND);
                 fileIntent.setType("text/csv");
-                fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Data");
+                fileIntent.putExtra(Intent.EXTRA_SUBJECT, DATA_NAME);
                 fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 fileIntent.putExtra(Intent.EXTRA_STREAM, path);
                 startActivity(Intent.createChooser(fileIntent, "Export Data"));
@@ -148,10 +148,12 @@ public class MainActivity extends AppCompatActivity  {
                 while(curCSV.moveToNext())
                 {
                     //Which column you want to exprort
-                    String arrStr[] ={curCSV.getString(0),curCSV.getString(1), curCSV.getString(2),
-                            curCSV.getString(3),curCSV.getString(4), curCSV.getString(5),
-                            curCSV.getString(6),curCSV.getString(7), curCSV.getString(8),
-                            curCSV.getString(9),curCSV.getString(10), curCSV.getString(11)};
+                    String arrStr[] ={
+                            curCSV.getString(0), curCSV.getString(1), curCSV.getString(2),
+                            curCSV.getString(3), curCSV.getString(4), curCSV.getString(5),
+                            curCSV.getString(6), curCSV.getString(7), curCSV.getString(8),
+                            curCSV.getString(9), curCSV.getString(10), curCSV.getString(11)
+                    };
                     csvWrite.writeNext(arrStr);
                 }
                 csvWrite.close();
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity  {
                     do {
                         StringBuilder sb = new StringBuilder(str1);
                         String[] str = line.split(",");
+                        Toast.makeText(this, line, Toast.LENGTH_SHORT).show();
                         sb.append(str[0] + ",'");
                         sb.append(str[1].substring(1,str[1].length()-1) + "','");
                         sb.append(str[2].substring(1,str[2].length()-1) + "','");
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity  {
                         sb.append(str[9].substring(1,str[9].length()-1) + "','");
                         sb.append(str[10].substring(1,str[10].length()-1) + "','");
                         sb.append(str[11].substring(1,str[11].length()-1) + "'");
+
                         sb.append(str2);
                         database.execSQL(sb.toString());
                     }
@@ -243,7 +247,8 @@ public class MainActivity extends AppCompatActivity  {
             String type = cursor.getString(cursor.getColumnIndex(DBStructure.TYPE));
             String feel = cursor.getString(cursor.getColumnIndex(DBStructure.FEEL));
             String week = cursor.getString(cursor.getColumnIndex(DBStructure.WEEK_OF_YEAR));
-            Events events1 = new Events(event,time,date,month,year,distance,duration,type,feel,week,id);
+            String noti = cursor.getString(cursor.getColumnIndex(DBStructure.NOTIFICATION));
+            Events events1 = new Events(event,time,date,month,year,distance,duration,type,feel,week,id,noti);
             events.add(events1);
         }
         cursor.close();

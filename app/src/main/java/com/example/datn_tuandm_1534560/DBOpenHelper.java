@@ -73,7 +73,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public Cursor ReadAllEvents(SQLiteDatabase db){
         String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH,
-            DBStructure.YEAR, DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL, DBStructure.WEEK_OF_YEAR};
+            DBStructure.YEAR, DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL, DBStructure.WEEK_OF_YEAR
+            , DBStructure.NOTIFICATION};
 
         return db.query(DBStructure.EVENT_TABLE_NAME, Projections,null,null,null,null,
                 DBStructure.DATE + " desc limit 12");

@@ -5,6 +5,22 @@ public class Events {
     int ID;
     double DISTANCE;
 
+    public Events(String EVENT, String TIME, String DATE, String MONTH, String YEAR, double DISTANCE,
+                  String DURATION, String TYPE, String FEEL, String WEEK, int ID, String NOTI ) {
+        this.EVENT = EVENT;
+        this.TIME = TIME;
+        this.DATE = DATE;
+        this.MONTH = MONTH;
+        this.YEAR = YEAR;
+        this.DURATION = DURATION;
+        this.TYPE = TYPE;
+        this.FEEL = FEEL;
+        this.WEEK = WEEK;
+        this.NOTI = NOTI;
+        this.ID = ID;
+        this.DISTANCE = DISTANCE;
+    }
+
     public Events(String EVENT, String TIME, String DATE, String MONTH, String YEAR, double DISTANCE
             , String DURATION, String TYPE, String FEEL, String WEEK, int ID) {
         this.EVENT = EVENT;
