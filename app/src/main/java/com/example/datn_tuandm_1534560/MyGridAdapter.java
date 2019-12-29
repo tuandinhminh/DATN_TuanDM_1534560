@@ -20,6 +20,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_EXCELLENT;
+import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_EXHAUSTED;
+import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_GOOD;
+import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_GREAT;
+import static com.example.datn_tuandm_1534560.ConstantVariables.FEEL_TIRED;
+
 public class MyGridAdapter extends ArrayAdapter {
     List<Date> dates;
     Calendar currentDate;
@@ -139,19 +145,19 @@ public class MyGridAdapter extends ArrayAdapter {
 
     private void FeelColors(String feel,TextView tv){
         switch (feel){
-            case "Exhausted":
+            case FEEL_EXHAUSTED:
                 tv.setTextColor(getContext().getResources().getColor(R.color.red));
                 break;
-            case "Tired":
+            case FEEL_TIRED:
                 tv.setTextColor(getContext().getResources().getColor(R.color.orange));
                 break;
-            case "Good":
+            case FEEL_GOOD:
                 tv.setTextColor(getContext().getResources().getColor(R.color.yellow));
                 break;
-            case "Great":
+            case FEEL_GREAT:
                 tv.setTextColor(getContext().getResources().getColor(R.color.green));
                 break;
-            case "Excellent":
+            case FEEL_EXCELLENT:
                 tv.setTextColor(getContext().getResources().getColor(R.color.sky));
                 break;
             default:

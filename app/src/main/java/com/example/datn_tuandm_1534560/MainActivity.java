@@ -43,6 +43,7 @@ import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_EN;
 import static com.example.datn_tuandm_1534560.ConstantVariables.LAN_VI;
 import static com.example.datn_tuandm_1534560.CustomCalendarView.SetUpCalendar;
 import static com.example.datn_tuandm_1534560.CustomCalendarView.calendar;
+import static com.example.datn_tuandm_1534560.CustomCalendarView.context;
 import static com.example.datn_tuandm_1534560.DBOpenHelper.CREAT_EVENTS_TABLE;
 import static com.example.datn_tuandm_1534560.DBOpenHelper.DROP_EVENTS_TABLE;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity  {
         //load quang cao
         mAdView = findViewById(R.id.adView);
         mAdView1 = findViewById(R.id.adView1);
-        MobileAds.initialize(this, ADMOB_ID);
+        MobileAds.initialize(context.getApplicationContext(), ADMOB_ID);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mAdView1.loadAd(adRequest);

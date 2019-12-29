@@ -86,8 +86,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public Cursor ReadEventsPerMonth(String month, String year, SQLiteDatabase db){
-        String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH, DBStructure.YEAR,
-                DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL, DBStructure.WEEK_OF_YEAR};
+        String [] Projections = {DBStructure.ID, DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH,
+                DBStructure.YEAR, DBStructure.DISTANCE, DBStructure.DURATION, DBStructure.TYPE, DBStructure.FEEL,
+                DBStructure.WEEK_OF_YEAR};
         String Selection = DBStructure.MONTH + "=? and " +DBStructure.YEAR+"=?";
         String [] SelectionArgs = {month, year};
         return db.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs,null,null,null);
