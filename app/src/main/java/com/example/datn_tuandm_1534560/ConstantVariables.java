@@ -19,10 +19,10 @@ public class ConstantVariables {
     public static final String FEEL_GREAT       = "Great";
     public static final String FEEL_EXCELLENT   = "Excellent";
     public static final String timePartern      = "K:mm a";
-    public static final SimpleDateFormat dateFormat      = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
-    public static final SimpleDateFormat monthFormat     = new SimpleDateFormat("MMMM",Locale.ENGLISH);
-    public static final SimpleDateFormat yearFormat      = new SimpleDateFormat("yyyy",Locale.ENGLISH);
-    public static final SimpleDateFormat eventDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+    public static final SimpleDateFormat dateFormat      = new SimpleDateFormat("MMMM yyyy");
+    public static final SimpleDateFormat monthFormat     = new SimpleDateFormat("MMMM");
+    public static final SimpleDateFormat yearFormat      = new SimpleDateFormat("yyyy");
+    public static final SimpleDateFormat eventDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public static final String JAN = "January";
     public static final String FEB = "February";

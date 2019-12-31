@@ -49,7 +49,7 @@ public class CustomCalendarView extends LinearLayout {
     static TextView currentDate;
     static GridView gridView;
     private static int MAX_CALENDAR_DAYS = 42 ;
-    static Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+    static Calendar calendar = Calendar.getInstance();
     static DBOpenHelper dbOpenHelper;
     static Context context;
     ArrayAdapter arrayAdapter1;
@@ -98,7 +98,7 @@ public class CustomCalendarView extends LinearLayout {
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
                 Calendar calendar = Calendar.getInstance();
-                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
+                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern);
                 String event_Time = hformat.format(calendar.getTime());
                 EventTime.setText(event_Time);
                 final String[] eventFeel = new String[1];
@@ -142,7 +142,8 @@ public class CustomCalendarView extends LinearLayout {
                 alarmYear = calendar.get(Calendar.YEAR);
                 alarmMonth = calendar.get(Calendar.MONTH);
                 alarmDay = calendar.get(Calendar.DAY_OF_MONTH);
-
+                alarmHour = calendar.get(Calendar.HOUR_OF_DAY);
+                alarmMinute = calendar.get(Calendar.MINUTE);
                 Button AddEvent = addView.findViewById(R.id.addevent);
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override
@@ -266,7 +267,7 @@ public class CustomCalendarView extends LinearLayout {
                 final Spinner spinnerType = addView.findViewById(R.id.eventtype);
                 final SeekBar seekBarFeel = addView.findViewById(R.id.SeekbarFeel);
                 Calendar calendar = Calendar.getInstance();
-                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern,Locale.ENGLISH);
+                final SimpleDateFormat hformat = new SimpleDateFormat(timePartern);
                 String event_Time = hformat.format(calendar.getTime());
                 EventTime.setText(event_Time);
                 final String[] eventFeel = new String[1];
@@ -302,6 +303,8 @@ public class CustomCalendarView extends LinearLayout {
                 alarmYear = calendar.get(Calendar.YEAR);
                 alarmMonth = calendar.get(Calendar.MONTH);
                 alarmDay = calendar.get(Calendar.DAY_OF_MONTH);
+                alarmHour = calendar.get(Calendar.HOUR_OF_DAY);
+                alarmMinute = calendar.get(Calendar.MINUTE);
                 Button AddEvent = addView.findViewById(R.id.addevent);
                 setTime.setOnClickListener(new OnClickListener() {
                     @Override

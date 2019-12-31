@@ -1,0 +1,44 @@
+Hình 1. Sơ đồ Use Case 11
+Hình 2. Create Log Class Diagram 12
+Hình 3. Create Log Sequence Diagram 13
+Hình 4. Create Log Activity Diagram 14
+Hình 5. Show Log Class Diagram 15
+Hình 6. Show Log Sequence Diagram 15
+Hình 7. Show Log Activity Diagram 15
+Hình 8. Delete Log Class Diagram 16
+Hình 9. Delete Log Sequence Diagram 16
+Hình 10. Delete Log Activity Diagram 17
+Hình 11. Edit Log Class Diagram 18
+Hình 12. Edit Log Sequence Diagram 18
+Hình 13. Edit Log Activity Diagram 19
+Hình 14. Show Graph Class Diagram 20
+Hình 15. Show Graph Sequence Diagram 20
+Hình 16. Show Graph Activity Diagram 20
+Hình 17. Change Language Class Diagram 21
+Hình 18. Change Language Sequence Diagram 21
+Hình 19. Change Language Activity Diagram 22 
+Hình 20. Export Data Class Diagram 23
+Hình 21. Export Data Sequence Diagram 24
+Hình 22. Export Data Activity Diagram 25 
+Hình 23. Import Data Class Diagram 26 
+Hình 24. Import Data Sequence Diagram 26
+Hình 25. Import Data Activity Diagram 27
+Hình 26. Set Notification Class Diagram 27
+Hình 27. Set Notification Sequence Diagram 28
+Hình 28. Set Notification Activity Diagram 28
+Hình 29. Database 32
+Hình 30. Calendar Class 33
+Hình 31. Giao diện chính 34
+Hình 32. Giao diện thêm Log 38
+Hình 33. Giao diện xóa Log 39
+Hình 34. Giao diện sửa Log 40
+Hình 35. Biểu đồ các lần chạy gần nhất 41 
+Hình 36. Biểu đồ kết hợp 41
+Hình 37. Biểu đồ quãng đường theo tuần 42
+Hình 38. Xuất dữ liệu vào bộ nhớ trong 44
+Hình 39. Xuất dữ liệu ra drive 44
+Hình 40. Giao diện Menu chính 46
+Hình 41. Giao diện chọn ngôn ngữ 49
+Hình 42. Translations Editor 50
+Hình 43. Giao diện thông báo 1 50
+Hình 44. Giao diện thông báo 2 50
