@@ -193,6 +193,7 @@ public class CustomCalendarView extends LinearLayout {
                                 setAlarm(_calendar, eventName.getText().toString(),EventTime.getText().toString(),
                                         getRequestCode(date, eventName.getText().toString(),EventTime.getText().toString()));
                                 //
+                                Toast.makeText(context, R.string.confirm_alarm, Toast.LENGTH_SHORT).show();
                                 alertDialog.dismiss();
                             }
                         }
@@ -471,6 +472,7 @@ public class CustomCalendarView extends LinearLayout {
         Calendar monthCalendar = (Calendar) calendar.clone();
         monthCalendar.set(Calendar.DAY_OF_MONTH, 0);
         int firstDayofMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+        Toast.makeText(context, ""+firstDayofMonth, Toast.LENGTH_SHORT).show();
         monthCalendar.add(Calendar.DAY_OF_MONTH,-firstDayofMonth);
         CollectEventsPerMonth(monthFormat.format(calendar.getTime()), yearFormat.format(calendar.getTime()));
         while(dates.size() < MAX_CALENDAR_DAYS){

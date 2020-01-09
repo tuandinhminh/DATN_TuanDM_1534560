@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         customCalendarView = findViewById(R.id.custom_calendar_view);
         //load quang cao
-        mAdView = findViewById(R.id.adView);
+//        mAdView = findViewById(R.id.adView);
         mAdView1 = findViewById(R.id.adView1);
         MobileAds.initialize(context.getApplicationContext(), ADMOB_ID);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        mAdView.loadAd(adRequest);
         mAdView1.loadAd(adRequest);
 
     }
@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         if (id == R.id.action_import){
+            verifyStoragePermissions(MainActivity.this);
             FileReader file = null;
             try {
                 file = new FileReader(Environment.getExternalStorageDirectory() + "/" + DATA_PATH + "/" + DATA_NAME);
